@@ -1,0 +1,9 @@
+@import "tailwindcss";
+@plugin "tailwindcss-animate";
+
+@theme {
+  --color-primary: #0a0a0a; /* Preto profundo */
+  --color-secondary: #d90429; /* Vermelho vibrante */
+  --color-background: #121212; /* Preto suave para fundo */
+  --color-accent: #ff2e63; /* Um vermelho mais chamativo para detalhes */
+}
