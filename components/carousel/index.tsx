@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { ArrowBigLeft, ArrowBigRight } from 'lucide-react';
 
 interface CarouselProps {
 	images: { src: string }[];
@@ -55,12 +54,6 @@ export default function Carousel({ images }: CarouselProps) {
 					</div>
 				))}
 			</div>
-			{/* <button className="absolute top-1/2 left-25 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full" onClick={prevSlide}>
-				<ArrowBigLeft />
-			</button>
-			<button className="absolute top-1/2 right-25 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full" onClick={nextSlide}>
-				<ArrowBigRight />
-			</button> */}
 			<div className="absolute bottom-5 left-1/2 transform -translate-x-1/2 flex space-x-2">
 				{images.map((_, index) => (
 					<div key={index} onClick={() => setCurrentIndex(index)} className={`w-3 h-3 select-none rounded-full ${index === currentIndex ? 'bg-white' : 'bg-gray-400'}`}></div>
