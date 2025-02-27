@@ -47,7 +47,7 @@ export default function Carousel({ images }: CarouselProps) {
 	};
 
 	return (
-		<div ref={carouselRef} className="relative w-screen h-[10vh] sm:h-[60vh] overflow-hidden" onTouchStart={handleTouchStart} onTouchMove={handleTouchMove}>
+		<div ref={carouselRef} className="relative w-screen h-[10vh] sm:h-[50vh] overflow-hidden" onTouchStart={handleTouchStart} onTouchMove={handleTouchMove}>
 			<div className="flex transition-transform duration-500" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
 				{images.map((image, index) => (
 					<div key={index} className="w-full h-full flex-shrink-0">

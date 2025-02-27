@@ -1,6 +1,8 @@
 "use client"
 
 import React, { useState } from 'react';
+import InputMask from 'react-input-mask-next';
+import FormatNumber from '../format/formatNumber';
 
 interface FilterProps {
 
@@ -14,6 +16,7 @@ export default function Filter() {
     const [minPrice, setMinPrice] = useState('');
     const [maxPrice, setMaxPrice] = useState('');
 
+
     const handleSearch = () => {
         // Implement search logic here
         console.log({
@@ -26,7 +29,7 @@ export default function Filter() {
         });
     };
 
-    return <div className='flex items-center justify-center  p-10'>
+    return <div className='flex items-center justify-center p-10'>
         <div className='container flex flex-col items-center justify-center '>
             <div className='w-full '>
                 <p className='text-white font-semibold text-5xl select-none'>Seu carro aqui:</p>
@@ -72,7 +75,7 @@ export default function Filter() {
                     <input
                         type="text"
                         value={minPrice}
-                        onChange={(e) => setMinPrice(e.target.value)}
+                        onChange={(e) => setMinPrice(FormatNumber.formatCurrency(e.target.value).toString())}
                         className=' w-full border-white bg-white no-underline outline-0 h-10 p-5 rounded-sm'
                         placeholder='Preço mínimo'
                     />
@@ -81,7 +84,7 @@ export default function Filter() {
                     <input
                         type="text"
                         value={maxPrice}
-                        onChange={(e) => setMaxPrice(e.target.value)}
+                        onChange={(e) => setMaxPrice(FormatNumber.formatCurrency(e.target.value).toString())}
                         className=' w-full border-white bg-white no-underline outline-0 h-10 p-5 rounded-sm'
                         placeholder='Preço máximo'
                     />

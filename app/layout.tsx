@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Logo from '@/public/logo.png'
 
 const geistSans = Geist({
 	variable: "--font-geist-sans",
@@ -12,7 +13,8 @@ const geistMono = Geist_Mono({
 	subsets: ["latin"],
 });
 
-import fav from "../public/favicon.ico";
+import Header from "@/components/header";
+import Footer from "@/components/footer";
 
 export const metadata: Metadata = {
 	title: "Ritter Veiculos"
@@ -22,7 +24,9 @@ export default function RootLayout({ children, }: Readonly<{ children: React.Rea
 	return (
 		<html lang="pt-br">
 			<body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+				<Header logo={Logo}/>
 				{children}
+				<Footer logo={Logo}/>
 			</body>
 		</html>
 	);
