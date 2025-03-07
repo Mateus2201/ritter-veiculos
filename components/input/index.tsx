@@ -10,7 +10,7 @@ interface InputProps {
 }
 
 export default function Input({ value, onChange, placeholder, classNameDiv, classNameInput }: InputProps) {
-    return <div className={cn('mt-5 w-full ', classNameDiv)}>
+    return <div className={cn('mt-5 w-full', classNameDiv)}>
         <input
             type="text"
             value={value}

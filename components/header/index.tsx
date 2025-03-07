@@ -12,8 +12,8 @@ interface HeaderProps {
 const MenuItems = [
     { id: 1, name: 'Home', href: '/' },
     { id: 2, name: 'Estoque', href: '/stock' },
-    { id: 3, name: 'Blindados', href: '/armored' },
-    { id: 4, name: 'Clássicos', href: '/classic' },
+    // { id: 3, name: 'Blindados', href: '/armored' },
+    // { id: 4, name: 'Clássicos', href: '/classic' },
     { id: 5, name: 'Contato', href: '/contact' },
     { id: 6, name: 'Sobre Nós', href: '/about' },
 ]

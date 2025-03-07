@@ -1,31 +1,104 @@
 "use client"
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import FormatNumber from '../format/formatNumber';
 import Input from '../input';
 import Button from '../button';
+import Select from '../select';
+import Color from '@/src/type/color';
+import CarsOptions from '@/src/type/type-cars';
+import TypeCars from '@/src/type/type-cars';
+import publicApi from '@/src/services/publicApi';
+import { cn } from '@/lib/utils';
 
-export default function Filter() {
+interface FilterProps {
+    className?: string;
+    children?: React.ReactNode;
+    classNameGap?: string;
+}
+
+export default function Filter({ className, children, classNameGap }: FilterProps) {
     const [carName, setCarName] = useState<string>('');
-    const [color, setColor] = useState<string>('');
+
+    const [colorOptions, setColorsOptions] = useState<Color[]>([]);
+    const [color, setColors] = useState<Color>();
+
+    const [modelOptions, setModelsOptions] = useState<CarsOptions[]>([]);
+    const [model, setModels] = useState<TypeCars>();
+
     const [year, setYear] = useState<string>('');
-    const [model, setModel] = useState<string>('');
+
     const [minPrice, setMinPrice] = useState<string>('');
     const [maxPrice, setMaxPrice] = useState<string>('');
 
-    return <div className='flex items-center justify-center p-10'>
+    useEffect(() => {
+        const fetchColors = async () => {
+            publicApi.get("/colors")
+                .then((res) => {
+                    setColorsOptions(res.data)
+                })
+                .catch(() => {
+                    console.log("Acesso negado! Redirecionando...");
+                });
+        };
+
+        const fetchModels = async () => {
+            publicApi.get("/car-type")
+                .then((res) => {
+                    setModelsOptions(res.data)
+                })
+                .catch(() => {
+                    console.log("Acesso negado! Redirecionando...");
+                });
+        };
+
+        fetchColors();
+        fetchModels();
+    }, []);
+
+    const changeSelectModel = (value: number) => {
+        setModels(modelOptions.find((model) => model.idtipo_veiculo == value));
+    }
+
+    const changeSelectColors = (value: number) => {
+        setColors(colorOptions.find((model) => model.idcor == value));
+    }
+
+    return <div className={cn('flex items-center justify-center p-10', className)}>
         <div className='container flex flex-col items-center justify-center '>
-            <div className='w-full '>
-                <p className='text-white font-semibold text-5xl select-none'>Seu carro aqui:</p>
-            </div>
-            <div className="md:grid md:grid-cols-6 md:gap-5 w-full">
-                <Input value={carName} onChange={(e) => setCarName(e.target.value)} placeholder='Nome do carro' classNameDiv='md:col-span-6'/>
-                <Input value={color} onChange={(e) => setColor(e.target.value)} placeholder='Nome do carro' />
-                <Input value={year} onChange={(e) => setYear(e.target.value)} placeholder='Nome do carro' />
-                <Input value={model} onChange={(e) => setModel(e.target.value)} placeholder='Nome do carro' />
-                <Input value={minPrice} onChange={(e) => setMinPrice(FormatNumber.formatCurrency(e.target.value).toString())} placeholder='Nome do carro' />
-                <Input value={maxPrice} onChange={(e) => setMaxPrice(FormatNumber.formatCurrency(e.target.value).toString())} placeholder='Nome do carro' />
-                <Button text='BUSCAR' onClick={() => { }} classname='bg-secondary text-white hover:bg-white hover:text-primary' />
+            <div className={cn('h-full w-full', classNameGap)}>
+                {children}
+                <Input
+                    value={carName}
+                    onChange={({ target }) => setCarName(target.value)}
+                    placeholder='Nome do carro' classNameDiv='md:col-span-6' />
+                <Select
+                    options={colorOptions.map(({ idcor, descricao }) => { return { id: idcor, value: descricao } })}
+                    selectedValue={model?.descricao}
+                    onChange={({ target }) => changeSelectColors(Number(target.value))}
+                    placeholder='Cores' />
+                <Input
+                    value={year}
+                    onChange={({ target }) => setYear(FormatNumber.formatNumber(target.value, '9999').toString())}
+                    placeholder='Ano' />
+                <Select
+                    options={modelOptions.map(({ idtipo_veiculo, descricao }) => { return { id: idtipo_veiculo, value: descricao } })}
+                    selectedValue={color?.descricao}
+                    onChange={({ target }) => changeSelectModel(Number(target.value))}
+                    placeholder='Modelo' />
+                <Input
+                    value={minPrice}
+                    onChange={({ target }) => setMinPrice(FormatNumber.formatCurrency(target.value).toString())}
+                    placeholder='Preço Mínimo (R$)' />
+                <Input
+                    value={maxPrice}
+                    onChange={({ target }) => setMaxPrice(FormatNumber.formatCurrency(target.value).toString())}
+                    placeholder='Preço Máximo (R$)' />
+                <Button
+                    text='BUSCAR'
+                    onClick={() => { }}
+                    classname='bg-secondary text-white hover:bg-white hover:text-primary'
+                />
             </div>
         </div>
     </div>

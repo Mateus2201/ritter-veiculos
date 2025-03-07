@@ -1,0 +1,101 @@
+[
+    {
+        "id": 1,
+        "name": "BMW",
+        "description": "I8 Roadster 1.5 Turbo",
+        "image": "@/src/highlights/foto-1.jpg",
+        "value": "R$ 100.000,00",
+        "km": "100.000 km",
+        "typeOil": "Óleo",
+        "transmission": "Automático",
+        "year": "2021"
+    },
+    {
+        "id": 2,
+        "name": "BMW",
+        "description": "I8 Roadster 1.5 Turbo",
+        "image": "@/src/highlights/foto-2.webp",
+        "value": "R$ 100.000,00",
+        "km": "100.000 km",
+        "typeOil": "Óleo",
+        "transmission": "Automático",
+        "year": "2021"
+    },
+    {
+        "id": 3,
+        "name": "BMW",
+        "description": "I8 Roadster 1.5 Turbo",
+        "image": "@/src/highlights/foto-3.jpg",
+        "value": "R$ 100.000,00",
+        "km": "100.000 km",
+        "typeOil": "Óleo",
+        "transmission": "Automático",
+        "year": "2021"
+    },
+    {
+        "id": 4,
+        "name": "BMW",
+        "description": "I8 Roadster 1.5 Turbo",
+        "image": "'@/src/highlights/foto-1.jpg",
+        "value": "R$ 100.000,00",
+        "km": "100.000 km",
+        "typeOil": "Óleo",
+        "transmission": "Automático",
+        "year": "2021"
+    },
+    {
+        "id": 5,
+        "name": "BMW",
+        "description": "I8 Roadster 1.5 Turbo",
+        "image": "@/src/highlights/foto-2.webp",
+        "value": "R$ 100.000,00",
+        "km": "100.000 km",
+        "typeOil": "Óleo",
+        "transmission": "Automático",
+        "year": "2021"
+    },
+    {
+        "id": 6,
+        "name": "BMW",
+        "description": "I8 Roadster 1.5 Turbo",
+        "image": "@/src/highlights/foto-3.jpg",
+        "value": "R$ 100.000,00",
+        "km": "100.000 km",
+        "typeOil": "Óleo",
+        "transmission": "Automático",
+        "year": "2021"
+    },
+    {
+        "id": 7,
+        "name": "BMW",
+        "description": "I8 Roadster 1.5 Turbo",
+        "image": "'@/src/highlights/foto-1.jpg",
+        "value": "R$ 100.000,00",
+        "km": "100.000 km",
+        "typeOil": "Óleo",
+        "transmission": "Automático",
+        "year": "2021"
+    },
+    {
+        "id": 8,
+        "name": "BMW",
+        "description": "I8 Roadster 1.5 Turbo",
+        "image": "@/src/highlights/foto-2.webp",
+        "value": "R$ 100.000,00",
+        "km": "100.000 km",
+        "typeOil": "Óleo",
+        "transmission": "Automático",
+        "year": "2021"
+    },
+    {
+        "id": 9,
+        "name": "BMW",
+        "description": "I8 Roadster 1.5 Turbo",
+        "image": "@/src/highlights/foto-3.jpg",
+        "value": "R$ 100.000,00",
+        "km": "100.000 km",
+        "typeOil": "Óleo",
+        "transmission": "Automático",
+        "year": "2021"
+    }
+]

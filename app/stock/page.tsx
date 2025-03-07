@@ -1,101 +1,74 @@
 "use client";
 
-import FormatNumber from '@/components/format/formatNumber';
-import { Calendar1, Filter, Fuel, Gauge, Joystick } from 'lucide-react';
-import Image, { StaticImageData } from 'next/image';
-import React, { use, useEffect, useState } from 'react';
-
-import highlight1 from '@/src/highlights/foto-1.jpg';
-import highlight2 from '@/src/highlights/foto-2.webp';
-import highlight3 from '@/src/highlights/foto-3.jpg';
-import Input from '@/components/input';
-import Button from '@/components/button';
+import React, { useEffect, useState } from 'react';
 import GridVehicle from '@/components/gridVehicle';
-import Vehicle from '@/src/type/vehicle';
+import publicApi from '@/src/services/publicApi';
+import ReactPaginate from 'react-paginate';
+import Filter from '@/components/filter';
+import { scroller } from "react-scroll";
+import Cars from '@/src/type/cars';
 
-const itens: Vehicle[] = [
-    { id: 1, name: 'BMW', description: 'I8 Roadster 1.5 Turbo I8 Roadster 1.5 Turbo', image: highlight1, value: 'R$ 100.000,00', km: '100.000 km', typeOil: 'Óleo', transmission: 'Automático', year: '2021' },
-    { id: 2, name: 'BMW', description: 'I8 Roadster 1.5 Turbo I8 Roadster 1.5 Turbo', image: highlight2, value: 'R$ 100.000,00', km: '100.000 km', typeOil: 'Óleo', transmission: 'Automático', year: '2021' },
-    { id: 3, name: 'BMW', description: 'I8 Roadster 1.5 Turbo I8 Roadster 1.5 Turbo', image: highlight3, value: 'R$ 100.000,00', km: '100.000 km', typeOil: 'Óleo', transmission: 'Automático', year: '2021' },
-    { id: 4, name: 'BMW', description: 'I8 Roadster 1.5 Turbo I8 Roadster 1.5 Turbo', image: highlight1, value: 'R$ 100.000,00', km: '100.000 km', typeOil: 'Óleo', transmission: 'Automático', year: '2021' },
-    { id: 5, name: 'BMW', description: 'I8 Roadster 1.5 Turbo I8 Roadster 1.5 Turbo', image: highlight2, value: 'R$ 100.000,00', km: '100.000 km', typeOil: 'Óleo', transmission: 'Automático', year: '2021' },
-    { id: 6, name: 'BMW', description: 'I8 Roadster 1.5 Turbo I8 Roadster 1.5 Turbo', image: highlight3, value: 'R$ 100.000,00', km: '100.000 km', typeOil: 'Óleo', transmission: 'Automático', year: '2021' },
-    { id: 7, name: 'BMW', description: 'I8 Roadster 1.5 Turbo I8 Roadster 1.5 Turbo', image: highlight1, value: 'R$ 100.000,00', km: '100.000 km', typeOil: 'Óleo', transmission: 'Automático', year: '2021' },
-    { id: 8, name: 'BMW', description: 'I8 Roadster 1.5 Turbo I8 Roadster 1.5 Turbo', image: highlight2, value: 'R$ 100.000,00', km: '100.000 km', typeOil: 'Óleo', transmission: 'Automático', year: '2021' },
-    { id: 9, name: 'BMW', description: 'I8 Roadster 1.5 Turbo I8 Roadster 1.5 Turbo', image: highlight3, value: 'R$ 100.000,00', km: '100.000 km', typeOil: 'Óleo', transmission: 'Automático', year: '2021' },
-    { id: 10, name: 'BMW', description: 'I8 Roadster 1.5 Turbo I8 Roadster 1.5 Turbo', image: highlight3, value: 'R$ 100.000,00', km: '100.000 km', typeOil: 'Óleo', transmission: 'Automático', year: '2021' },
-    { id: 11, name: 'BMW', description: 'I8 Roadster 1.5 Turbo I8 Roadster 1.5 Turbo', image: highlight3, value: 'R$ 100.000,00', km: '100.000 km', typeOil: 'Óleo', transmission: 'Automático', year: '2021' },
-    { id: 12, name: 'BMW', description: 'I8 Roadster 1.5 Turbo I8 Roadster 1.5 Turbo', image: highlight3, value: 'R$ 100.000,00', km: '100.000 km', typeOil: 'Óleo', transmission: 'Automático', year: '2021' },
-    { id: 13, name: 'BMW', description: 'I8 Roadster 1.5 Turbo I8 Roadster 1.5 Turbo', image: highlight3, value: 'R$ 100.000,00', km: '100.000 km', typeOil: 'Óleo', transmission: 'Automático', year: '2021' },
-    { id: 14, name: 'BMW', description: 'I8 Roadster 1.5 Turbo I8 Roadster 1.5 Turbo', image: highlight3, value: 'R$ 100.000,00', km: '100.000 km', typeOil: 'Óleo', transmission: 'Automático', year: '2021' },
-    { id: 15, name: 'BMW', description: 'I8 Roadster 1.5 Turbo I8 Roadster 1.5 Turbo', image: highlight3, value: 'R$ 100.000,00', km: '100.000 km', typeOil: 'Óleo', transmission: 'Automático', year: '2021' },
-    { id: 16, name: 'BMW', description: 'I8 Roadster 1.5 Turbo I8 Roadster 1.5 Turbo', image: highlight3, value: 'R$ 100.000,00', km: '100.000 km', typeOil: 'Óleo', transmission: 'Automático', year: '2021' },
-];
+const itensForPages = 9
 
 export default function Stock() {
-    const [sectionPage, setSectionPage] = useState<Vehicle[]>([]);
-    const [qtyPages, setQtyPages] = useState<number>(0);
-
-    const [carName, setCarName] = useState<string>('');
-    const [color, setColor] = useState<string>('');
-    const [year, setYear] = useState<string>('');
-    const [model, setModel] = useState<string>('');
-    const [minPrice, setMinPrice] = useState<string>('');
-    const [maxPrice, setMaxPrice] = useState<string>('');
+    const [paginaAtual, setPaginaAtual] = useState(1);
+    const [sectionPage, setSectionPage] = useState<Cars[]>([]);
+    const [totalPaginas, setTotalPaginas] = useState<number>(0)
 
     useEffect(() => {
-        setQtyPages(Math.ceil(itens.length / 9));
+        publicApi.get(`cars-page/9/${(paginaAtual - 1) * itensForPages}`)
+            .then((res) => setSectionPage(res.data))
+            .catch(() => {
+                console.log("Acesso negado! Redirecionando...");
+            });
+    }, [paginaAtual]);
 
-        setSectionPage(itens.slice(0, 9));
+    useEffect(() => {
+        publicApi.get("/cars-count/")
+            .then((res) => {
+                const count = res.data
+                setTotalPaginas(Math.ceil(count / itensForPages))
+            })
+            .catch(() => {
+                console.log("Acesso negado! Redirecionando...");
+            });
+    }, []);
 
-        console.log('Itens:', sectionPage);
-
-        console.log('Qtd Pages:', qtyPages);
-
-    }, [itens]);
+    const mudarPagina = (event: { selected: number }) => {
+        setPaginaAtual(event.selected + 1);
+        scroller.scrollTo("filters", {
+            duration: 1500,
+            smooth: true,
+            offset: 0,
+        });
+    };
 
     return <div className="min-h-screen bg-stone-900">
         <div className='container min-h-screen mx-auto  flex flex-col'>
             <div className='md:flex h-full bg-stone-700'>
-                <div className='h-full w-full md:w-1/4 p-5'>
-                    <h1 className='text-2xl flex items-baseline font-bold text-white'><Filter />Stock </h1>
-                    <Input
-                        value={carName}
-                        onChange={(e) => setCarName(e.target.value)}
-                        placeholder='Nome do carro'
-                    />
-                    <Input
-                        value={color}
-                        onChange={(e) => setColor(e.target.value)}
-                        placeholder='Cor do carro'
-                    />
-                    <Input
-                        value={year}
-                        onChange={(e) => setYear(e.target.value)}
-                        placeholder='Ano do carro'
-                    />
-                    <Input
-                        value={model}
-                        onChange={(e) => setModel(e.target.value)}
-                        placeholder='Modelo do Carro'
-                    />
-                    <Input
-                        value={minPrice}
-                        onChange={(e) => setMinPrice(e.target.value)}
-                        placeholder='Preço Mínimo'
-                    />
-                    <Input
-                        value={maxPrice}
-                        onChange={(e) => setMaxPrice(e.target.value)}
-                        placeholder='Preço Máximo'
-                    />
-                    <Button text='BUSCAR' onClick={() => { }} classname='bg-secondary text-white hover:bg-white hover:text-primary' />
-
-                </div>
-                <div className='h-full w-full md:w-3/4 p-5'>
+                <Filter className='h-full w-full md:w-1/4 p-5 filters'>
+                    <h1 className='text-2xl flex items-baseline font-bold text-white'>Stock </h1>
+                </Filter>
+                <div className='gridVeiculos h-full w-full md:w-3/4 p-5'>
                     <div className={'max-w-full flex items-center justify-center '}>
-                        <GridVehicle items={sectionPage} />
+                        {sectionPage ? <GridVehicle items={sectionPage} /> : <h1 className='text-2xl flex items-baseline font-bold text-white'>Stock </h1>}
                     </div>
+                    <ReactPaginate
+                        previousLabel={"Anterior"}
+                        nextLabel={"Próximo"}
+                        breakLabel={"..."}
+                        pageCount={totalPaginas}
+                        marginPagesDisplayed={2}
+                        pageRangeDisplayed={3}
+                        onPageChange={mudarPagina}
+                        containerClassName="mt-5 w-full flex items-center justify-center flex gap-2"
+                        pageClassName="px-3 py-2 border not-sm:hidden rounded-full min-w-10 cursor-pointer select-none hover:bg-secondary hover:text-white transition"
+                        activeClassName="bg-secondary text-white"
+                        previousClassName="px-4 py-2 border  rounded-full cursor-pointer select-none hover:bg-gray-200 transition"
+                        nextClassName="px-4 py-2 border rounded-full cursor-pointer select-none hover:bg-gray-200 transition"
+                        breakClassName="px-3 py-2 not-sm:hidden"
+                        disabledClassName="opacity-50 cursor-not-allowed"
+                    />
                 </div>
             </div>
         </div>
