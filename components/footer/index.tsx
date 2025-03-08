@@ -6,7 +6,7 @@ interface FooterProps {
 
 export default function Footer({ logo }: FooterProps) {
     return (
-        <footer className={'static bottom-0 border-t bg-primary border-t-black text-white flex items-center justify-center'}>
+        <footer className={'static bottom-0 border-t bg-primary border-t-black text-offWhite flex items-center justify-center'}>
             <div className="container bg-primary ">
                 <div className={'max-w-full md:grid md: grid-cols-3 gap-20 p-10 font-bold'}>
                     <div className='not-md:mt-5 not-md:border-t not-md:border-white not-md:pt-5'>

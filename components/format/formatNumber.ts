@@ -34,14 +34,13 @@ class FormatNumber {
       : "";
   };
 
-  static formatPhone1 = (value: string) => {
-    return (
-      value
-        .replace(/\D/g, "") // Remove tudo que não for número
-        // .replace(/^(\d{2})(\d)/, '($1) $2') // Adiciona parênteses no DDD
-        .replace(/(\d{3})(\d)/, "$1.$2") // Adiciona o hífen
-        .slice(0, 15)
-    ); // Limita o tamanho
+  static formatPrice = (value: number) => {
+    const formatoMoeda = new Intl.NumberFormat("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    }).format(value);
+
+    return formatoMoeda;
   };
 }
 

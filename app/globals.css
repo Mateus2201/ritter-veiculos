@@ -2,8 +2,23 @@
 @plugin "tailwindcss-animate";
 
 @theme {
-  --color-primary: #0a0a0a; /* Preto profundo */
+  --color-primary: #0d0d0d; /* Preto profundo */
   --color-secondary: #d90429; /* Vermelho vibrante */
-  --color-background: #121212; /* Preto suave para fundo */
+  --color-background: #3d3d3d; /* Preto suave para fundo */
   --color-accent: #ff2e63; /* Um vermelho mais chamativo para detalhes */
+  --color-dark: #1a1a1a;
+  --color-offWhite: #F5F5F5;
+}
+
+/* #0D0D0D (Preto profundo, quase absoluto)
+ #1A1A1A (Para fundos secundários, mantendo a vibe dark)
+ #9B0000 (Para tons mais profundos e sofisticados)
+ #3D3D3D (Para contrastes suaves sem perder a identidade escura)
+ #F5F5F5 (Para textos ou pequenos destaques, evitando o branco puro) */
+
+.geist-mono {
+  font-family: "Geist Mono", monospace;
+  font-optical-sizing: auto;
+  /* font-weight: <weight>; */
+  font-style: normal;
 }

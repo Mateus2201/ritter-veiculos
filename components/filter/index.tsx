@@ -32,28 +32,23 @@ export default function Filter({ className, children, classNameGap }: FilterProp
     const [maxPrice, setMaxPrice] = useState<string>('');
 
     useEffect(() => {
-        const fetchColors = async () => {
-            publicApi.get("/colors")
-                .then((res) => {
-                    setColorsOptions(res.data)
-                })
-                .catch(() => {
-                    console.log("Acesso negado! Redirecionando...");
-                });
-        };
+        publicApi.get("/colors")
+            .then((res) => {
+                setColorsOptions(res.data)
+            })
+            .catch(() => {
+                console.log("Acesso negado! Redirecionando...");
+            });
+    }, []);
 
-        const fetchModels = async () => {
-            publicApi.get("/car-type")
-                .then((res) => {
-                    setModelsOptions(res.data)
-                })
-                .catch(() => {
-                    console.log("Acesso negado! Redirecionando...");
-                });
-        };
-
-        fetchColors();
-        fetchModels();
+    useEffect(() => {
+        publicApi.get("/car-type")
+            .then((res) => {
+                setModelsOptions(res.data)
+            })
+            .catch(() => {
+                console.log("Acesso negado! Redirecionando...");
+            });
     }, []);
 
     const changeSelectModel = (value: number) => {
@@ -61,7 +56,7 @@ export default function Filter({ className, children, classNameGap }: FilterProp
     }
 
     const changeSelectColors = (value: number) => {
-        setColors(colorOptions.find((model) => model.idcor == value));
+        setColors(colorOptions.find((color) => color.idcor == value));
     }
 
     return <div className={cn('flex items-center justify-center p-10', className)}>
@@ -72,20 +67,22 @@ export default function Filter({ className, children, classNameGap }: FilterProp
                     value={carName}
                     onChange={({ target }) => setCarName(target.value)}
                     placeholder='Nome do carro' classNameDiv='md:col-span-6' />
-                <Select
-                    options={colorOptions.map(({ idcor, descricao }) => { return { id: idcor, value: descricao } })}
-                    selectedValue={model?.descricao}
-                    onChange={({ target }) => changeSelectColors(Number(target.value))}
-                    placeholder='Cores' />
                 <Input
                     value={year}
                     onChange={({ target }) => setYear(FormatNumber.formatNumber(target.value, '9999').toString())}
                     placeholder='Ano' />
                 <Select
-                    options={modelOptions.map(({ idtipo_veiculo, descricao }) => { return { id: idtipo_veiculo, value: descricao } })}
-                    selectedValue={color?.descricao}
+                    options={colorOptions.map(({ idcor, descricao }) => ({ id: idcor, value: descricao }))}
+                    onChange={({ target }) => changeSelectColors(Number(target.value))}
+                    selectedValue={color?.idcor} 
+                    placeholder='Cores'
+                />
+                <Select
+                    options={modelOptions.map(({ idtipo_veiculo, descricao }) => ({ id: idtipo_veiculo, value: descricao }))}
                     onChange={({ target }) => changeSelectModel(Number(target.value))}
-                    placeholder='Modelo' />
+                    selectedValue={model?.idtipo_veiculo} 
+                    placeholder='Modelo'
+                />
                 <Input
                     value={minPrice}
                     onChange={({ target }) => setMinPrice(FormatNumber.formatCurrency(target.value).toString())}
@@ -97,7 +94,7 @@ export default function Filter({ className, children, classNameGap }: FilterProp
                 <Button
                     text='BUSCAR'
                     onClick={() => { }}
-                    classname='bg-secondary text-white hover:bg-white hover:text-primary'
+                    classname='bg-secondary text-offWhite hover:bg-white hover:text-primary'
                 />
             </div>
         </div>
