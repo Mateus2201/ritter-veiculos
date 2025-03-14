@@ -59,7 +59,7 @@ export default function Filter({ className, children, classNameGap }: FilterProp
         setColors(colorOptions.find((color) => color.idcor == value));
     }
 
-    return <div className={cn('flex items-center justify-center p-10', className)}>
+    return <div className={cn('flex items-center justify-center p-10 bg-primary', className)}>
         <div className='container flex flex-col items-center justify-center '>
             <div className={cn('h-full w-full', classNameGap)}>
                 {children}

@@ -48,7 +48,7 @@ export default function Car() {
                         scrollbar={{ draggable: true }}
                         initialSlide={selectedIndex}
                         onSwiper={setMainSwiper}
-                        className="max-h-130 h-9/10 items-center rounded-lg "
+                        className="max-h-130 h-1/1 items-center rounded-lg "
                     >
                         {images.map((image, index) => (
                             <SwiperSlide key={index} className="cursor-pointer">
@@ -63,12 +63,12 @@ export default function Car() {
                         direction="vertical"
                         slidesPerView={4}
                         scrollbar={{ draggable: true }}
-                        className="max-h-130 h-9/10 rounded-lg "
+                        className="max-h-130 h-1/1 rounded-lg "
                     >
                         {images.map((image, index) => (
                             <SwiperSlide
                                 key={index}
-                                className="w-auto rounded-lg cursor-pointer mb-5"
+                                className="w-auto rounded-lg cursor-pointer mb-1"
                                 onClick={() => {
                                     setSelectedIndex(index);
                                     if (mainSwiper) mainSwiper.slideTo(index);
@@ -86,7 +86,7 @@ export default function Car() {
                         spaceBetween={10}
                         slidesPerView={4}
                         scrollbar={{ draggable: true }}
-                        className=" h-full rounded-lg "
+                        className="h-full rounded-lg"
                     >
                         {images.map((image, index) => (
                             <SwiperSlide
@@ -97,7 +97,7 @@ export default function Car() {
                                     if (mainSwiper) mainSwiper.slideTo(index);
                                 }}
                             >
-                                <Image src={image} alt={`imagem-${index}`} className='w-full rounded-lg' />
+                                <Image src={image} alt={`imagem-${index}`} className='w-1/1 rounded-lg' />
                             </SwiperSlide>
                         ))}
                     </Swiper>

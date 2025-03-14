@@ -43,15 +43,15 @@ export default function Classis() {
         });
     };
 
-    return <div className="bg-stone-900 min-h-screen">
-        <div className='container mx-auto  flex flex-col'>
-            <div className='md:flex h-full bg-stone-700'>
-                <Filter className='h-full w-full md:w-1/4 p-5 filters'>
+    return <div className=" min-h-screen">
+        <div className='container mx-auto bg-white flex flex-col'>
+            <div className='md:flex h-full '>
+                <Filter className='w-full md:w-1/4 p-5 filters bg-background items-start'>
                     <h1 className='text-3xl flex items-baseline font-bold text-offWhite'>Clássicos</h1>
                 </Filter>
                 <div className='gridVeiculos h-full w-full md:w-3/4 p-5 '>
                     <div className={'max-w-full flex items-center justify-center '}>
-                        {sectionPage ? <GridVehicle items={sectionPage} /> : <h1 className='text-2xl  flex items-baseline font-bold text-offWhite'>Stock </h1>}
+                        {sectionPage ? <GridVehicle items={sectionPage} /> : <h1 className='text-2xl flex items-baseline font-bold text-offWhite'>Stock </h1>}
                     </div>
                     <ReactPaginate
                         previousLabel={"Anterior"}
@@ -61,13 +61,13 @@ export default function Classis() {
                         marginPagesDisplayed={2}
                         pageRangeDisplayed={3}
                         onPageChange={mudarPagina}
-                        containerClassName="flex items-center justify-center gap-2 w-full h-10 p-0 mt-5 "
-                        activeClassName="text-xl"
-                        previousClassName="select-none items-center bg-white text-primary hover:bg-secondary hover:text-offWhite border-white rounded-md p-2 "
-                        nextClassName="select-none items-center bg-white text-primary hover:bg-secondary hover:text-offWhite border-white rounded-md p-2 "
-                        pageClassName="select-none items-center not-md:hidden bg-white text-primary hover:bg-secondary hover:text-offWhite border-white rounded-md p-2 "
-                        breakClassName="select-none items-center not-md:hidden bg-white text-primary hover:bg-secondary hover:text-offWhite border-white rounded-md p-2 "
-                        disabledClassName="select-none items-center not-md:hidden bg-white text-primary hover:bg-secondary hover:text-offWhite border-white rounded-md p-2 "
+                        containerClassName="flex items-center justify-center gap-2 w-full h-15 p-0 mt-5"
+                        activeClassName="text-xl bg-secondary text-offWhite"
+                        previousClassName="select-none items-center  hover:bg-secondary hover:text-offWhite border-white rounded-md p-2 "
+                        nextClassName="select-none items-center  hover:bg-secondary hover:text-offWhite border-white rounded-md p-2 "
+                        pageClassName="select-none items-center not-md:hidden  hover:bg-secondary hover:text-offWhite border-white rounded-md p-2 "
+                        breakClassName="select-none items-center not-md:hidden  hover:bg-secondary hover:text-offWhite border-white rounded-md p-2 "
+                        disabledClassName="select-none items-center not-md:hidden  hover:bg-secondary hover:text-offWhite border-white rounded-md p-2 "
                     />
                 </div>
             </div>
