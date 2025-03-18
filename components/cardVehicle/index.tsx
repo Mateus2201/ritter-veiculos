@@ -30,7 +30,7 @@ export default function CardVehicle({ idveiculo, modelo, observacao, valor, ano_
             </div>
         </div>
         <div className='p-2 border-t-2 border-white'>
-            <Button text={'Ver mais'} onClick={() => { }} classname=' w-full bg-white hover:bg-secondary hover:text-offWhite  ' />
+            <Button text={'Ver mais'} onClick={() => { }} className=' w-full bg-white hover:bg-secondary hover:text-offWhite  ' />
         </div>
     </div>
 }

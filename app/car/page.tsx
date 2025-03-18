@@ -5,7 +5,7 @@ import argo from "@/src/img/carros/argo.jpeg"
 import chevette from "@/src/img/carros/chevette.jpeg"
 import hilux from "@/src/img/carros/hilux.jpeg"
 import Image from 'next/image';
-import { Armchair, CalendarCheck2, CarFront, ClipboardList, Factory, FastForward, Fuel, Gauge, HandHelping, Joystick, PaintbrushVertical, RockingChair } from 'lucide-react';
+import { Armchair, CalendarCheck2, CarFront, CheckCheck, ClipboardList, Factory, FastForward, Fuel, Gauge, HandHelping, Joystick, PaintbrushVertical, RockingChair } from 'lucide-react';
 import Cars from '@/src/type/cars';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
@@ -15,6 +15,7 @@ import 'swiper/css';
 import publicApi from '@/src/services/publicApi';
 import FormatNumber from '@/components/format/formatNumber';
 import Button from '@/components/button';
+import UploadImage from '@/components/upload';
 
 const images = [argo, argo, hilux, argo, chevette, chevette, chevette, hilux, chevette, hilux, hilux,];
 
@@ -104,6 +105,7 @@ export default function Car() {
                 </div>
             </div>
             <div className='xl:w-4/10 lg:p-5 pt-5'>
+                <UploadImage/>
                 <h1 className="lg:text-5xl text-offWhite text-4xl font-bold m-2">{FormatNumber.formatPrice(car.valor)} {car?.exibicao_valor}</h1>
                 <p className="text-offWhite m-2 flex items-center gap-2"><ClipboardList /> {car?.placa} {car?.exibicao_placa} </p>
                 <p className="text-offWhite m-2 flex items-center gap-2"><HandHelping /> {car?.aceita_proposta} </p>
@@ -117,14 +119,9 @@ export default function Car() {
                 <p className="text-offWhite m-2 flex items-center gap-2"><PaintbrushVertical /> {car?.idcor} </p>
             </div>
         </div>
-        <div className="mt-4 bg-gray-100 p-4 rounded-lg">
-            <h2 className="text-lg font-semibold">Score</h2>
-            <div className="flex items-center text-yellow-500">
-                {[...Array(4)].map((_, i) => (
-                    <FastForward key={i} />
-                ))}
-                <span className="text-gray-700 ml-2">8/10</span>
-            </div>
+        <div className="mt-4 bg-background text-offWhite p-4 rounded-lg">
+            <h2 className="text-lg font-semibold">Opcionais: </h2>
+            <p className=" m-2 flex items-center gap-2"><CheckCheck /> {car?.idcor} </p>
         </div>
 
         <div className="mt-4 flex space-x-4">
@@ -145,8 +142,8 @@ export default function Car() {
         </div>
 
         <div className="mt-4 flex space-x-4">
-            <Button className="bg-green-500 hover:bg-green-600 text-offWhite">Compare Offers</Button>
-            <Button className="bg-blue-500 hover:bg-blue-600 text-offWhite">Take the Quiz</Button>
+            <Button className="bg-green-500 hover:bg-green-600 text-offWhite" text='Compare Offers'/>
+            <Button className="bg-blue-500 hover:bg-blue-600 text-offWhite" text='Take the Quiz' />
         </div>
     </div>
 };

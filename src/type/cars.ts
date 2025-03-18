@@ -28,6 +28,7 @@ type Cars = {
   login_cadastro: string;
   data_ultima_alteracao: Date;
   login_ultima_alteracao: string;
+  url_image: string;
 }
 
 export default Cars;

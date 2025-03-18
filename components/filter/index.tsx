@@ -94,7 +94,7 @@ export default function Filter({ className, children, classNameGap }: FilterProp
                 <Button
                     text='BUSCAR'
                     onClick={() => { }}
-                    classname='bg-secondary text-offWhite hover:bg-white hover:text-primary'
+                    className='bg-secondary text-offWhite hover:bg-white hover:text-primary'
                 />
             </div>
         </div>
