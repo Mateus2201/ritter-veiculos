@@ -17,6 +17,8 @@ const geistMono = Geist_Mono({
 	display: "swap",
 });
 
+// geist-mono
+
 export const metadata: Metadata = {
 	title: "Ritter Veiculos"
 };
@@ -24,7 +26,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children, }: Readonly<{ children: React.ReactNode; }>) {
 	return (
 		<html lang="pt-br">
-			<body className={`${geistSans.variable} ${geistMono.variable} geist-mono max-h-screen overflow-x-hidden antialiased`}>
+			<body className={`${geistSans.variable} ${geistMono.variable}  max-h-screen overflow-x-hidden antialiased`}>
 				<Header logo={Logo}/>
 				{children}
 				<Footer logo={Logo}/>

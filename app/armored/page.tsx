@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import GridVehicle from '@/components/gridVehicle';
+import GridVehicle from '@/components/grid-vehicle';
 import publicApi from '@/src/services/publicApi';
 import ReactPaginate from 'react-paginate';
 import Filter from '@/components/filter';
@@ -10,7 +10,7 @@ import Cars from '@/src/type/cars';
 
 const itensForPages = 9
 
-export default function Armored() {
+export default function ArmoredPage() {
     const [paginaAtual, setPaginaAtual] = useState(1);
     const [sectionPage, setSectionPage] = useState<Cars[]>([]);
     const [totalPaginas, setTotalPaginas] = useState<number>(0)

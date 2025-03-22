@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Contact() {
+export default function ContactPage() {
     return (
         <div className="flex items-center justify-center min-h-screen bg-stone-900">
             <div className="container mx-auto p-8 flex flex-col justify-center bg-stone-800 ">

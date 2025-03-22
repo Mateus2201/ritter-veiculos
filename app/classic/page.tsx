@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import GridVehicle from '@/components/gridVehicle';
+import GridVehicle from '@/components/grid-vehicle';
 import publicApi from '@/src/services/publicApi';
 import ReactPaginate from 'react-paginate';
 import Filter from '@/components/filter';
@@ -10,7 +10,7 @@ import Cars from '@/src/type/cars';
 
 const itensForPages = 9
 
-export default function Classis() {
+export default function ClassisPage() {
     const [paginaAtual, setPaginaAtual] = useState(1);
     const [sectionPage, setSectionPage] = useState<Cars[]>([]);
     const [totalPaginas, setTotalPaginas] = useState<number>(0)
@@ -43,15 +43,15 @@ export default function Classis() {
         });
     };
 
-    return <div className=" min-h-screen">
-        <div className='container mx-auto bg-white flex flex-col'>
+    return <div className=" min-h-screen bg-gray-300">
+        <div className='container mx-auto  flex flex-col'>
             <div className='md:flex h-full '>
-                <Filter className='w-full md:w-1/4 p-5 filters bg-background items-start'>
-                    <h1 className='text-3xl flex items-baseline font-bold text-offWhite'>Clássicos</h1>
+                <Filter className='w-full md:w-1/4 p-5 my-5 rounded-lg bg-white items-start'>
+                    <h1 className='text-3xl flex items-baseline font-bold text-background'>Clássicos</h1>
                 </Filter>
                 <div className='gridVeiculos h-full w-full md:w-3/4 p-5 '>
                     <div className={'max-w-full flex items-center justify-center '}>
-                        {sectionPage ? <GridVehicle items={sectionPage} /> : <h1 className='text-2xl flex items-baseline font-bold text-offWhite'>Stock </h1>}
+                        <GridVehicle items={sectionPage} classNameCard='bg-white text-primary'/>
                     </div>
                     <ReactPaginate
                         previousLabel={"Anterior"}

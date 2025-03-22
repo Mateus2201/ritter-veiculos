@@ -2,7 +2,7 @@
 
 import Cars from '@/src/type/cars';
 import React, { useEffect, useState } from 'react';
-import GridVehicle from '../gridVehicle';
+import GridVehicle from '../grid-vehicle';
 import publicApi from '@/src/services/publicApi';
 
 export default function GridHighlights() {

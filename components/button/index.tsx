@@ -9,7 +9,7 @@ interface ButtonProps {
 
 export default function Button({ onClick, text, className }: ButtonProps) {
     return <div className='mt-5'>
-        <button className={cn(`flex justify-center items-center w-full no-underline outline-0 h-10 p-5 rounded-sm`, className)} >
+        <button onClick={onClick} className={cn(`flex justify-center items-center w-full no-underline outline-0 h-10 p-5 rounded-sm`, className)} >
             <p className='font-bold text-md '>{text}</p>
         </button>
     </div>

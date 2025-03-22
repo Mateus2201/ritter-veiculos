@@ -10,6 +10,9 @@ import CarsOptions from '@/src/type/type-cars';
 import TypeCars from '@/src/type/type-cars';
 import publicApi from '@/src/services/publicApi';
 import { cn } from '@/lib/utils';
+import Produced from '@/src/type/produced';
+import Link from 'next/link';
+import Router, { redirect } from 'next/navigation';
 
 interface FilterProps {
     className?: string;
@@ -18,6 +21,8 @@ interface FilterProps {
 }
 
 export default function Filter({ className, children, classNameGap }: FilterProps) {
+    const [stringForLink, setstringForLink] = useState<string>();
+
     const [carName, setCarName] = useState<string>('');
 
     const [colorOptions, setColorsOptions] = useState<Color[]>([]);
@@ -26,7 +31,8 @@ export default function Filter({ className, children, classNameGap }: FilterProp
     const [modelOptions, setModelsOptions] = useState<CarsOptions[]>([]);
     const [model, setModels] = useState<TypeCars>();
 
-    const [year, setYear] = useState<string>('');
+    const [producedOptions, setProducedOptions] = useState<Produced[]>([]);
+    const [produced, setProduced] = useState<Produced>();
 
     const [minPrice, setMinPrice] = useState<string>('');
     const [maxPrice, setMaxPrice] = useState<string>('');
@@ -51,12 +57,42 @@ export default function Filter({ className, children, classNameGap }: FilterProp
             });
     }, []);
 
+    useEffect(() => {
+        publicApi.get("/produced")
+            .then((res) => {
+                setProducedOptions(res.data)
+            })
+            .catch(() => {
+                console.log("Acesso negado! Redirecionando...");
+            });
+    }, []);
+
+    console.log(stringForLink);
+
+
     const changeSelectModel = (value: number) => {
         setModels(modelOptions.find((model) => model.idtipo_veiculo == value));
     }
 
     const changeSelectColors = (value: number) => {
         setColors(colorOptions.find((color) => color.idcor == value));
+    }
+
+    const changeSelectProduced = (value: number) => {
+        setProduced(producedOptions.find((produced) => produced.idfabricante == value));
+    }
+
+    const changeValueForLink = () => {
+        let link = '/stock';
+
+        link += `/${carName ? carName : '?'}`
+        link += `/${produced ? produced.idfabricante : '?'}`
+        link += `/${color ? color.idcor : '?'}`
+        link += `/${model ? model.idtipo_veiculo : '?'}`
+        link += `/${minPrice ? FormatNumber.parseCurrency(minPrice) : '?'}`
+        link += `/${maxPrice ? FormatNumber.parseCurrency(maxPrice) : '?'}`
+
+        redirect(link);
     }
 
     return <div className={cn('flex items-center justify-center p-10 bg-primary', className)}>
@@ -67,20 +103,22 @@ export default function Filter({ className, children, classNameGap }: FilterProp
                     value={carName}
                     onChange={({ target }) => setCarName(target.value)}
                     placeholder='Nome do carro' classNameDiv='md:col-span-6' />
-                <Input
-                    value={year}
-                    onChange={({ target }) => setYear(FormatNumber.formatNumber(target.value, '9999').toString())}
-                    placeholder='Ano' />
+                <Select
+                    options={producedOptions.map(({ idfabricante, nome }) => ({ id: idfabricante, value: nome }))}
+                    onChange={({ target }) => changeSelectProduced(Number(target.value))}
+                    selectedValue={produced?.idfabricante}
+                    placeholder='Fabricante'
+                />
                 <Select
                     options={colorOptions.map(({ idcor, descricao }) => ({ id: idcor, value: descricao }))}
                     onChange={({ target }) => changeSelectColors(Number(target.value))}
-                    selectedValue={color?.idcor} 
+                    selectedValue={color?.idcor}
                     placeholder='Cores'
                 />
                 <Select
                     options={modelOptions.map(({ idtipo_veiculo, descricao }) => ({ id: idtipo_veiculo, value: descricao }))}
                     onChange={({ target }) => changeSelectModel(Number(target.value))}
-                    selectedValue={model?.idtipo_veiculo} 
+                    selectedValue={model?.idtipo_veiculo}
                     placeholder='Modelo'
                 />
                 <Input
@@ -93,8 +131,8 @@ export default function Filter({ className, children, classNameGap }: FilterProp
                     placeholder='Preço Máximo (R$)' />
                 <Button
                     text='BUSCAR'
-                    onClick={() => { }}
-                    className='bg-secondary text-offWhite hover:bg-white hover:text-primary'
+                    onClick={changeValueForLink}
+                    className='hover:bg-secondary hover:text-offWhite bg-gray-300 text-background'
                 />
             </div>
         </div>

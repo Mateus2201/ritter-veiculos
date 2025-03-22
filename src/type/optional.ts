@@ -1,3 +1,5 @@
+import TipoOpcional from "./optional-type";
+
 type Optional  = {
    idopcional: number;
    nome: string;
@@ -7,6 +9,7 @@ type Optional  = {
    login_cadastro: string;
    data_ultima_alteracao: Date;
    login_ultima_alteracao: string;
+   TipoOpcional: TipoOpcional
 }
 
 export default Optional;

@@ -25,7 +25,7 @@ const Topicos: TopicosProps[] = [
     },
 ]
 
-export default function About() {
+export default function AboutPage() {
     return (
         <div className=" bg-stone-900">
             <div className="container mx-auto p-8 flex flex-col justify-center bg-stone-800 ">

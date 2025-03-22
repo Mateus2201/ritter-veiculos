@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import GridVehicle from '@/components/gridVehicle';
+import GridVehicle from '@/components/grid-vehicle';
 import publicApi from '@/src/services/publicApi';
 import ReactPaginate from 'react-paginate';
 import Filter from '@/components/filter';
@@ -10,18 +10,10 @@ import Cars from '@/src/type/cars';
 
 const itensForPages = 9
 
-export default function Stock() {
+export default function StockPage() {
     const [paginaAtual, setPaginaAtual] = useState(1);
     const [sectionPage, setSectionPage] = useState<Cars[]>([]);
     const [totalPaginas, setTotalPaginas] = useState<number>(0)
-
-    useEffect(() => {
-        publicApi.get(`cars-page/9/${(paginaAtual - 1) * itensForPages}`)
-            .then((res) => setSectionPage(res.data))
-            .catch(() => {
-                console.log("Acesso negado! Redirecionando...");
-            });
-    }, [paginaAtual]);
 
     useEffect(() => {
         publicApi.get("/cars-count/")
@@ -34,6 +26,14 @@ export default function Stock() {
             });
     }, []);
 
+    useEffect(() => {
+        publicApi.get(`cars-page/9/${(paginaAtual - 1) * itensForPages}`)
+            .then((res) => setSectionPage(res.data))
+            .catch(() => {
+                console.log("Acesso negado! Redirecionando...");
+            });
+    }, [paginaAtual]);
+
     const mudarPagina = (event: { selected: number }) => {
         setPaginaAtual(event.selected + 1);
         scroller.scrollTo("filters", {
@@ -43,15 +43,15 @@ export default function Stock() {
         });
     };
 
-    return <div className=" min-h-screen">
-        <div className='container mx-auto bg-white flex flex-col'>
+    return <div className=" min-h-screen bg-primary">
+        <div className='container mx-auto flex flex-col'>
             <div className='md:flex h-full '>
-                <Filter className='w-full md:w-1/4 p-5 filters bg-background items-start'>
+                <Filter className='w-full md:w-1/4 p-5 filters items-start'>
                     <h1 className='text-3xl flex items-baseline font-bold text-offWhite'>Estoque</h1>
                 </Filter>
-                <div className='gridVeiculos h-full w-full md:w-3/4 p-5 '>
+                <div className='h-full w-full md:w-3/4 p-5 '>
                     <div className={'max-w-full flex items-center justify-center '}>
-                        {sectionPage ? <GridVehicle items={sectionPage} /> : <h1 className='text-2xl flex items-baseline font-bold text-offWhite'>Stock </h1>}
+                        {sectionPage ? <GridVehicle items={sectionPage} /> : <h1 className='text-2xl flex items-baseline font-bold text-background'>Stock </h1>}
                     </div>
                     <ReactPaginate
                         previousLabel={"Anterior"}
@@ -63,11 +63,11 @@ export default function Stock() {
                         onPageChange={mudarPagina}
                         containerClassName="flex items-center justify-center gap-2 w-full h-15 p-0 mt-5"
                         activeClassName="text-xl bg-secondary text-offWhite"
-                        previousClassName="select-none items-center  hover:bg-secondary hover:text-offWhite border-white rounded-md p-2 "
-                        nextClassName="select-none items-center  hover:bg-secondary hover:text-offWhite border-white rounded-md p-2 "
-                        pageClassName="select-none items-center not-md:hidden  hover:bg-secondary hover:text-offWhite border-white rounded-md p-2 "
-                        breakClassName="select-none items-center not-md:hidden  hover:bg-secondary hover:text-offWhite border-white rounded-md p-2 "
-                        disabledClassName="select-none items-center not-md:hidden  hover:bg-secondary hover:text-offWhite border-white rounded-md p-2 "
+                        previousClassName="select-none items-center bg-white hover:bg-secondary hover:text-offWhite border-white rounded-md p-2 "
+                        nextClassName="select-none items-center bg-white hover:bg-secondary hover:text-offWhite border-white rounded-md p-2 "
+                        pageClassName="select-none items-center not-md:hidden bg-white hover:bg-secondary hover:text-offWhite border-white rounded-md p-2 "
+                        breakClassName="select-none items-center not-md:hidden bg-white hover:bg-secondary hover:text-offWhite border-white rounded-md p-2 "
+                        disabledClassName="select-none items-center not-md:hidden bg-white hover:bg-secondary hover:text-offWhite border-white rounded-md p-2 "
                     />
                 </div>
             </div>

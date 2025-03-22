@@ -15,9 +15,9 @@ export default function Select({ options, selectedValue, onChange, placeholder =
         <select
             value={selectedValue || 0}
             onChange={onChange}
-            className={cn(`w-full border bg-white outline-none h-10 p-2 rounded-sm`, classNameSelect)}
+            className={cn('w-full border border-background bg-white outline-none h-10 px-3 rounded-sm ', classNameSelect)}
         >
-            <option value="" className='text-gray-500'>{placeholder}</option>
+            <option value="" className='text-[#A9A9A9]'>{placeholder}</option>
             {options.map(({ id, value }) => (
                 <option key={id} value={id}>{value}</option>
             ))}

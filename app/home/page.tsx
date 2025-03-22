@@ -1,10 +1,10 @@
 import Carousel from '@/components/carousel'
 import Filter from '@/components/filter'
-import GridHighlights from '@/components/gridhighlights';
+import GridHighlights from '@/components/grid-highlights';
 import foto1 from '@/src/img/banner-2.png';
 import foto2 from '@/src/img/banner.png';
 
-export default function home() {
+export default function HomePage() {
     return <div className='w-screen min-h-screen'>
         <Carousel images={[foto1, foto2]} />
         <Filter classNameGap='md:grid md:grid-cols-6 md:gap-5 '>

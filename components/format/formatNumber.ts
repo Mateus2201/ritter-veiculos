@@ -34,6 +34,14 @@ class FormatNumber {
       : "";
   };
 
+  static parseCurrency = (formattedValue: string): number => {
+    const numericValue = formattedValue
+      .replace(/\./g, "") // Remove pontos (separadores de milhar)
+      .replace(",", "."); // Substitui vírgula decimal por ponto
+
+    return Number(numericValue);
+  };
+
   static formatPrice = (value: number) => {
     const formatoMoeda = new Intl.NumberFormat("pt-BR", {
       style: "currency",
@@ -41,6 +49,17 @@ class FormatNumber {
     }).format(value);
 
     return formatoMoeda;
+  };
+
+  static formatPlate = (plate: string, show: boolean) => {
+    const str = show
+      ? plate
+      : plate
+          .split("")
+          .map((char, index) => (index >= 1 && index <= 6 ? "*" : char))
+          .join("");
+
+    return str.slice(0, 3) + "-" + str.slice(3);
   };
 }
 

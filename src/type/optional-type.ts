@@ -1,4 +1,4 @@
-type OptionalType = {
+type TipoOpcional = {
   idtipo_opcional: number;
   descricao: string;
   data_cadastro: Date;
@@ -7,4 +7,4 @@ type OptionalType = {
   login_ultima_alteracao: string | null;
 };
 
-export default OptionalType;
+export default TipoOpcional;

@@ -6,7 +6,7 @@ import { Menu, X } from 'lucide-react';
 import Link from 'next/link';
 
 interface HeaderProps {
-    logo: { src: string };
+    logo: any;
 }
 
 const MenuItems = [
@@ -17,17 +17,18 @@ const MenuItems = [
     { id: 5, name: 'Contato', href: '/contact' },
     { id: 6, name: 'Sobre Nós', href: '/about' },
 ]
+
 export default function Header({ logo }: HeaderProps) {
     const [isOpen, setIsOpen] = useState<boolean>(false);
 
     return <main className='w-screen'>
         <div className="w-full flex justify-center">
             <header className="flex justify-center bg-primary h-70 lg:h-60 w-full">
-                <div className="container relative lg:flex justify-center items-center ">
-                    <div className="absolute cursor-pointer top-1/3 left-1/5 lg:left-1/10 ">
-                        <img src={logo.src} alt="hero" className='w-60 lg:w-80' />
+                <div className="container relative flex justify-center items-center ">
+                    <div className="absolute cursor-pointer top-1/3 lg:left-1/10">
+                        <Image src={logo} alt="hero" className='w-60 lg:w-80' />
                     </div>
-                    <div className="absolute not-lg:container not-lg:flex not-lg:justify-center not-lg:top-2/3 lg:left-5/10 text-offWhite z-100">
+                    <div className="absolute not-lg:container not-lg:flex not-lg:justify-center not-lg:top-2/3 lg:left-5/10 text-offWhite z-100 ">
                         <nav className=''>
                             <button onClick={() => setIsOpen(!isOpen)} className="lg:hidden w-full text-offWhite">
                                 {isOpen ? <X className='w-full' /> : <Menu className='w-full' />}
