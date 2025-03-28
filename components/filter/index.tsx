@@ -23,7 +23,7 @@ interface FilterProps {
 export default function Filter({ className, children, classNameGap }: FilterProps) {
     const [stringForLink, setstringForLink] = useState<string>();
 
-    const [carName, setCarName] = useState<string>('');
+    const [name, setName] = useState<string>('');
 
     const [colorOptions, setColorsOptions] = useState<Color[]>([]);
     const [color, setColors] = useState<Color>();
@@ -83,15 +83,17 @@ export default function Filter({ className, children, classNameGap }: FilterProp
     }
 
     const changeValueForLink = () => {
-        let link = '/stock';
-
-        link += `/${carName ? carName : '?'}`
-        link += `/${produced ? produced.idfabricante : '?'}`
-        link += `/${color ? color.idcor : '?'}`
-        link += `/${model ? model.idtipo_veiculo : '?'}`
-        link += `/${minPrice ? FormatNumber.parseCurrency(minPrice) : '?'}`
-        link += `/${maxPrice ? FormatNumber.parseCurrency(maxPrice) : '?'}`
-
+        let params = [
+            name || "_",
+            produced?.idfabricante || "_",
+            color?.idcor || "_",
+            model?.idtipo_veiculo || "_",
+            minPrice ? FormatNumber.parseCurrency(minPrice) : "_",
+            maxPrice ? FormatNumber.parseCurrency(maxPrice) : "_"
+        ];
+        
+        let link = `/stock/${params.join("/")}`;
+        
         redirect(link);
     }
 
@@ -100,8 +102,8 @@ export default function Filter({ className, children, classNameGap }: FilterProp
             <div className={cn('h-full w-full', classNameGap)}>
                 {children}
                 <Input
-                    value={carName}
-                    onChange={({ target }) => setCarName(target.value)}
+                    value={name}
+                    onChange={({ target }) => setName(target.value)}
                     placeholder='Nome do carro' classNameDiv='md:col-span-6' />
                 <Select
                     options={producedOptions.map(({ idfabricante, nome }) => ({ id: idfabricante, value: nome }))}

@@ -1,6 +1,9 @@
 import { StaticImageData } from "next/image";
+import Color from "./color";
+import TypeCars from "./type-cars";
+import Produced from "./produced";
 
-type Cars = {
+type Car = {
   idveiculo: number;
   idtipo_veiculo: number;
   idfabricante: number;
@@ -29,6 +32,9 @@ type Cars = {
   data_ultima_alteracao: Date;
   login_ultima_alteracao: string;
   url_image: string;
+  Cor: Color;
+  TipoVeiculo: TypeCars;
+  Fabricante: Produced;
 }
 
-export default Cars;
+export default Car;

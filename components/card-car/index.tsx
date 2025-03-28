@@ -2,14 +2,15 @@ import Image from 'next/image';
 import React from 'react'
 import { Calendar1, Fuel, Gauge, Joystick } from 'lucide-react';
 import Button from '../button';
-import Cars from '@/src/type/cars';
+import Car from '@/src/type/cars';
 import FormatNumber from '../format/formatNumber';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import hilux from '@/src/img/carros/hilux.jpeg';
+import PropagateLoader from 'react-spinners/PropagateLoader';
 
 interface CardCarProps {
-    car: Cars
+    car: Car
     className?: string
 }
 
@@ -17,8 +18,18 @@ export default function CardCar({ car, className }: CardCarProps) {
     const { idveiculo, modelo, observacao, valor, motor, ano_modelo, ano_fabricacao, combustivel, quilometragem, exibicao_valor } = car;
 
     return <div key={idveiculo} className={cn('xl:h-160 not-xl:mt-5 rounded-lg bg-background text-offWhite', className)}>
-        <Image src={hilux} alt={'hillux'} className={'w-full xl:w-140 xl:h-70  rounded-t-md'} />
-        {/* <div className="w-full xl:w-140 xl:h-70 object-cover rounded-t-md"></div> */}
+        {hilux
+            ? <div className='relative top-0 left-0 w-full h-70'>
+                <Image src={'https://res.cloudinary.com/dwq0pruh5/image/upload/v1742268942/your-cloudinary-folder-name/file_hubxny.jpg'}
+                    fill
+                    alt={'hillux'}
+                    className={'w-full xl:w-140 xl:h-70 object-contain md:object-cover rounded-t-md'}
+                />
+            </div>
+            : <div className="w-full h-70 flex items-center justify-center bg-accent rounded-t-md">
+                <PropagateLoader color={'#000'} loading={true} size={15} />
+            </div>
+        }
         <div className={'mt-5 px-3  '}>
             <div className='flex justify-start items-baseline gap-1 m-5 '>
                 <div className='relative w-full overflow-hidden'>

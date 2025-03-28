@@ -1,11 +1,11 @@
-import Cars from '@/src/type/cars';
+import Car from '@/src/type/cars';
 import React from 'react'
 import { Armchair, CalendarCheck2, CarFront, CheckCheck, ClipboardList, Factory, FastForward, Fuel, Gauge, HandHelping, Joystick, PaintbrushVertical, RockingChair } from 'lucide-react';
 import FormatNumber from '@/components/format/formatNumber';
 
 type InformationCarProps = {
     id: string;
-    car: Cars;
+    car: Car;
 }
 
 export default function InformationCar({ id,car}: InformationCarProps) {

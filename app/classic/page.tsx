@@ -1,41 +1,39 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import GridVehicle from '@/components/grid-vehicle';
 import publicApi from '@/src/services/publicApi';
 import ReactPaginate from 'react-paginate';
 import Filter from '@/components/filter';
 import { scroller } from "react-scroll";
-import Cars from '@/src/type/cars';
+import Car from '@/src/type/cars';
 
 const itensForPages = 9
 
 export default function ClassisPage() {
-    const [paginaAtual, setPaginaAtual] = useState(1);
-    const [sectionPage, setSectionPage] = useState<Cars[]>([]);
-    const [totalPaginas, setTotalPaginas] = useState<number>(0)
+    const [offset, setPageConfig] = useState<number>(0);
+    const [sectionPage, setSectionPage] = useState<Car[]>([]);
+    const [countCarsTotal, setCountCarsTotal] = useState<number>();
 
     useEffect(() => {
-        publicApi.get(`cars-page/9/${(paginaAtual - 1) * itensForPages}`)
-            .then((res) => setSectionPage(res.data))
-            .catch(() => {
-                console.log("Acesso negado! Redirecionando...");
-            });
-    }, [paginaAtual]);
-
-    useEffect(() => {
-        publicApi.get("/cars-count/")
+        publicApi.get(`cars-stock/9/${offset}`)
             .then((res) => {
-                const count = res.data
-                setTotalPaginas(Math.ceil(count / itensForPages))
+                setSectionPage(res.data.cars);
+                setCountCarsTotal(res.data.count);
             })
             .catch(() => {
                 console.log("Acesso negado! Redirecionando...");
             });
-    }, []);
+    }, [offset]);
+
+    const totalPaginas = useMemo(() => {
+        return countCarsTotal ? Math.ceil(countCarsTotal / itensForPages) : 0;
+    }, [countCarsTotal, itensForPages]);
+
 
     const mudarPagina = (event: { selected: number }) => {
-        setPaginaAtual(event.selected + 1);
+        setPageConfig(event.selected++)
+
         scroller.scrollTo("filters", {
             duration: 1500,
             smooth: true,

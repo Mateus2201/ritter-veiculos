@@ -1,16 +1,23 @@
 "use client"
 
-import Cars from '@/src/type/cars';
+import Car from '@/src/type/cars';
 import React, { useEffect, useState } from 'react';
 import GridVehicle from '../grid-vehicle';
 import publicApi from '@/src/services/publicApi';
 
 export default function GridHighlights() {
-    const [cars, setCars] = useState<Cars[]>([])
-    
+    const [cars, setCars] = useState<Car[]>([])
+
     useEffect(() => {
-        publicApi.get("cars-page/9/0")
-            .then((res) => setCars(res.data))
+        console.log('res.data');
+
+        publicApi.get("cars-highlights/9")
+            .then((res) => {
+                console.log(res.data);
+                
+                setCars(res.data)
+
+            })
             .catch(() => {
                 console.log("Acesso negado! Redirecionando...");
             });

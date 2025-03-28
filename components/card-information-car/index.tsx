@@ -5,14 +5,14 @@ import SwiperImages from "../swiper-images";
 import InformationCar from "../information-car";
 import Optionals from "../optionals";
 import publicApi from "@/src/services/publicApi";
-import Cars from "@/src/type/cars";
+import Car from "@/src/type/cars";
 
 type CardInformationCarProps = {
   id: string;
 };
 
 export default function CardInformationCar({ id }: CardInformationCarProps) {
-  const [car, setCar] = useState<Cars>();
+  const [car, setCar] = useState<Car>();
 
   useEffect(() => {
     publicApi.get('cars/'.concat(id))
