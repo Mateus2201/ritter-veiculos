@@ -23,3 +23,13 @@
   /* font-weight: <weight>; */
   font-style: normal;
 }
+
+.scroll-effect {
+  transform: translateY(10px);
+  transition: transform 0.6s ease-in-out;
+}
+
+.scrolled .scroll-effect {
+  transform: translateY(0);
+}
+

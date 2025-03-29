@@ -42,7 +42,7 @@ export default function Optionals({ Car }: CategoryProps) {
     }, [OptionsVehicles]);
 
     return <div className="flex flex-col items-start justify-start bg-white mt-4 p-10 w-full rounded-lg ">
-        <h1 className="text-3xl font-semibold text-center w-full mb-5 ">Opcionais:</h1>
+        {OptionsVehicles.length > 0 && <h1 className="text-3xl font-semibold text-center w-full mb-5 ">Opcionais:</h1>}
         <div className="grid gap-10 lg:grid-cols-4 grid-cols-1 ">
             {OptionsVehicles.length > 0 ?
                 Object.entries(groupedOptions ?? {}).map(([id, { descricao, opcionais }]) =>
@@ -50,7 +50,9 @@ export default function Optionals({ Car }: CategoryProps) {
                         <h2 className="text-lg font-semibold ">{descricao}:</h2>
                         {opcionais.map((nome) => <p key={nome} className="m-2 flex items-center gap-2"><CheckCheck /> {nome}</p>)}
                     </div>)
-                : <div className='flex space-x-2 items-center text-secondary'><Ban /><h1 className="text-lg   font-semibold"> Nenhuma opcional disponível!</h1></div>
+                : <div className='flex space-x-2 items-center justify-center text-secondary'>
+                    <Ban /><h1 className="text-lg font-semibold"> Nenhuma opcional disponível!</h1>
+                </div>
             }
         </div>
     </div>

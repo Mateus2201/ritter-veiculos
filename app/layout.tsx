@@ -27,9 +27,9 @@ export default function RootLayout({ children, }: Readonly<{ children: React.Rea
 	return (
 		<html lang="pt-br">
 			<body className={`${geistSans.variable} ${geistMono.variable}  max-h-screen overflow-x-hidden antialiased`}>
-				<Header logo={Logo}/>
+				<Header logo={Logo} />
 				{children}
-				<Footer logo={Logo}/>
+				<Footer logo={Logo} />
 			</body>
 		</html>
 	);

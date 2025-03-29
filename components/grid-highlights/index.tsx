@@ -9,21 +9,14 @@ export default function GridHighlights() {
     const [cars, setCars] = useState<Car[]>([])
 
     useEffect(() => {
-        console.log('res.data');
-
         publicApi.get("cars-highlights/9")
-            .then((res) => {
-                console.log(res.data);
-                
-                setCars(res.data)
-
-            })
+            .then((res) => setCars(res.data))
             .catch(() => {
                 console.log("Acesso negado! Redirecionando...");
             });
     }, []);
 
-    return <div className={'max-w-full flex items-center justify-center p-10'}>
-        <GridVehicle items={cars} />
+    return <div className={'max-w-full flex items-center justify-center p-10 bg-gray-300'}>
+        <GridVehicle classNameCard='bg-white text-primary' items={cars} />
     </div>
 };
