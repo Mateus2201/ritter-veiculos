@@ -17,7 +17,7 @@ interface CardCarProps {
 export default function CardCar({ car, className }: CardCarProps) {
     const { idveiculo, modelo, observacao, valor, motor, ano_modelo, ano_fabricacao, combustivel, quilometragem, exibicao_valor } = car;
 
-    return <div key={idveiculo} className={cn('xl:h-160 not-xl:mt-5 rounded-lg bg-background text-offWhite', className)}>
+    return <div key={idveiculo} className={cn('xl:h-full not-xl:mt-5 rounded-lg  text-offWhite', className)}>
         {hilux
             ? <div className='relative top-0 left-0 w-full h-70'>
                 <Image src={'https://res.cloudinary.com/dwq0pruh5/image/upload/v1742268942/your-cloudinary-folder-name/file_hubxny.jpg'}
@@ -30,8 +30,8 @@ export default function CardCar({ car, className }: CardCarProps) {
                 <PropagateLoader color={'#000'} loading={true} size={15} />
             </div>
         }
-        <div className={'mt-5 px-3  '}>
-            <div className='flex justify-start items-baseline gap-1 m-5 '>
+        <div className={'mt-5 px-3'}>
+            <div className='flex justify-start items-baseline gap-1 m-5'>
                 <div className='relative w-full overflow-hidden'>
                     <div className="items-baseline whitespace-nowrap transition-transform duration-500 ease-in-out translate-x-0 hover:-translate-x-2/3 flex">
                         <h1 className="text-2xl font-bold ">{modelo} - </h1>
@@ -49,7 +49,7 @@ export default function CardCar({ car, className }: CardCarProps) {
                 <p className='z-22 flex items-center gap-2 w-full overflow-hidden whitespace-nowrap text-ellipsis'><Gauge />{quilometragem} </p>
             </div>
         </div>
-        <div className='p-2 border-t-2 border-white'>
+        <div className='p-2 '>
             <Link href={`/car/${idveiculo}`}>
                 <Button text={'Ver mais'} className=' w-full bg-white text-background hover:bg-secondary hover:text-offWhite ' />
             </Link>

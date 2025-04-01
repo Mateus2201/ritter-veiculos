@@ -34,14 +34,14 @@ const Topicos: TopicosProps[] = [
 export default function AboutPage() {
     return <div className=" flex flex-col items-center justify-center ">
         <div className="container flex flex-col items-center justify-center p-5 ">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {Topicos.map(({ title, paragraph, bg }, index) => (
                     <div key={index} className={`flex flex-col rounded-xl shadow-xl bg-white`}>
-                        <div className="overflow-auto rounded-lg backdrop-sepia-50">
+                        <div className="overflow-auto scrollbar-hide rounded-lg backdrop-sepia-50">
                             <div className="mx-auto h-100 overflow-y-scroll border-x border-x-gray-200 bg-cover bg-[center_-100px] " style={{ backgroundImage: `url(${bg})` }}>
                                 <div className="mt-65">
-                                    <div className="border-x border-x-gray-200 p-4 text-white sm:p-8 min-h-85 bg-gray-500">
-                                        <div className="font-inter text-2xl font-bold tracking-tight ">
+                                    <div className="border-x border-x-gray-200 p-4 text-white sm:p-8 min-h-85 bg-background">
+                                        <div className="font-inter text-2xl font-stretch-semi-condensed tracking-tight ">
                                             {title}
                                         </div>
                                         <p className="mt-4 font-light text-xl leading-7">{paragraph}</p>
