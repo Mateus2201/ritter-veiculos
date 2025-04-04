@@ -11,8 +11,8 @@ import TypeCars from '@/src/type/type-cars';
 import publicApi from '@/src/services/publicApi';
 import { cn } from '@/lib/utils';
 import Produced from '@/src/type/produced';
-import Link from 'next/link';
-import Router, { redirect } from 'next/navigation';
+import { redirect } from 'next/navigation';
+import { Loader } from 'lucide-react';
 
 interface FilterProps {
     className?: string;
@@ -21,19 +21,14 @@ interface FilterProps {
 }
 
 export default function Filter({ className, children, classNameGap }: FilterProps) {
-    const [stringForLink, setstringForLink] = useState<string>();
-
+    const [loader, setLoader] = useState<boolean>(false);
     const [name, setName] = useState<string>('');
-
     const [colorOptions, setColorsOptions] = useState<Color[]>([]);
     const [color, setColors] = useState<Color>();
-
     const [modelOptions, setModelsOptions] = useState<CarsOptions[]>([]);
     const [model, setModels] = useState<TypeCars>();
-
     const [producedOptions, setProducedOptions] = useState<Produced[]>([]);
     const [produced, setProduced] = useState<Produced>();
-
     const [minPrice, setMinPrice] = useState<string>('');
     const [maxPrice, setMaxPrice] = useState<string>('');
 
@@ -67,9 +62,6 @@ export default function Filter({ className, children, classNameGap }: FilterProp
             });
     }, []);
 
-    console.log(stringForLink);
-
-
     const changeSelectModel = (value: number) => {
         setModels(modelOptions.find((model) => model.idtipo_veiculo == value));
     }
@@ -83,17 +75,19 @@ export default function Filter({ className, children, classNameGap }: FilterProp
     }
 
     const changeValueForLink = () => {
-        let params = [
-            name || "_",
-            produced?.idfabricante || "_",
-            color?.idcor || "_",
-            model?.idtipo_veiculo || "_",
-            minPrice ? FormatNumber.parseCurrency(minPrice) : "_",
-            maxPrice ? FormatNumber.parseCurrency(maxPrice) : "_"
-        ];
-        
-        let link = `/stock/${params.join("/")}`;
-        
+        setLoader(!loader);
+
+        const queryParams = [
+            name || "name",
+            produced?.idfabricante || "produced",
+            color?.idcor || "color",
+            model?.idtipo_veiculo || "type",
+            minPrice ? FormatNumber.parseCurrency(minPrice) : "min-price",
+            maxPrice ? FormatNumber.parseCurrency(maxPrice) : "max-price"
+        ].join("/");
+
+        let link = `/search/${queryParams}`;
+
         redirect(link);
     }
 
@@ -132,10 +126,14 @@ export default function Filter({ className, children, classNameGap }: FilterProp
                     onChange={({ target }) => setMaxPrice(FormatNumber.formatCurrency(target.value).toString())}
                     placeholder='Preço Máximo (R$)' />
                 <Button
-                    text='BUSCAR'
                     onClick={changeValueForLink}
-                    className='hover:bg-secondary hover:text-offWhite bg-gray-300 text-background'
-                />
+                    className='hover:bg-secondary hover:text-offWhite font-bold bg-gray-300 '>
+                    {loader
+                        ? <Loader className='animate-spin opacity-100  transition-opacity duration-1300 ease-in-out' />
+                        : <p className='font-bold text-md '>{'BUSCAR'}</p>
+                    }
+                </Button>
+
             </div>
         </div>
     </div>

@@ -1,5 +1,3 @@
-"use client";
-
 import React from 'react'
 import CardCar from '../card-car';
 import Car from '@/src/type/cars';
@@ -11,7 +9,6 @@ interface GridVehicleProps {
     className?: string
     classNameCard?: string
 }
-
 
 export default function GridVehicle({ items, className, classNameCard }: GridVehicleProps) {
     return <div className={cn("container xl:grid xl:grid-cols-3 gap-5", className)}>
