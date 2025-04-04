@@ -59,7 +59,7 @@ export default function ArmoredPage() {
                         </div> : <div className='flex items-center justify-center w-full h-full'>
                             <h1 className='text-3xl font-bold text-background'>Nenhum veículo encontrado</h1>
                         </div>}
-                        {(countCarsTotal && countCarsTotal < 9) &&
+                        {typeof countCarsTotal === 'number' && countCarsTotal > 9 &&
                             <ReactPaginate
                                 previousLabel={"Anterior"}
                                 nextLabel={"Próximo"}

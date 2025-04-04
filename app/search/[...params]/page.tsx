@@ -53,7 +53,7 @@ export default function SearchPage() {
         <div className='container mx-auto  flex flex-col'>
             <div className='md:flex h-full '>
                 <Filter className='filters w-full md:w-1/4 p-5 my-5 rounded-lg bg-white items-start'>
-                    <h1 className='text-3xl flex items-baseline font-bold text-background'>Clássicos</h1>
+                    <h1 className='text-3xl flex items-baseline font-bold text-background'>Busca</h1>
                 </Filter>
                 {loading
                     ? <Loading />
@@ -63,7 +63,7 @@ export default function SearchPage() {
                         </div> : <div className='flex items-center justify-center w-full h-full'>
                             <h1 className='text-3xl font-bold text-background'>Nenhum veículo encontrado</h1>
                         </div>}
-                        {(countCarsTotal && countCarsTotal < 9) &&
+                        {typeof countCarsTotal === 'number' && countCarsTotal > 9 &&
                             <ReactPaginate
                                 previousLabel={"Anterior"}
                                 nextLabel={"Próximo"}

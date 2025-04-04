@@ -4,11 +4,10 @@ import React, { useEffect, useMemo, useState } from 'react';
 import GridVehicle from '@/components/grid-vehicle';
 import publicApi from '@/src/services/publicApi';
 import ReactPaginate from 'react-paginate';
+import Loading from '@/components/loading';
 import Filter from '@/components/filter';
 import { scroller } from "react-scroll";
 import Car from '@/src/type/cars';
-import PropagateLoader from 'react-spinners/PropagateLoader';
-import Loading from '@/components/loading';
 
 const itensForPages = 9
 
@@ -59,7 +58,7 @@ export default function ClassisPage() {
                         </div> : <div className='flex items-center justify-center w-full h-full'>
                             <h1 className='text-3xl font-bold text-background'>Nenhum veículo encontrado</h1>
                         </div>}
-                        {(countCarsTotal && countCarsTotal < 9) &&
+                        {typeof countCarsTotal === 'number' && countCarsTotal > 9 &&
                             <ReactPaginate
                                 previousLabel={"Anterior"}
                                 nextLabel={"Próximo"}

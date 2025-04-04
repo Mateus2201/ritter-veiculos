@@ -13,6 +13,8 @@ import { cn } from '@/lib/utils';
 import Produced from '@/src/type/produced';
 import { redirect } from 'next/navigation';
 import { Loader } from 'lucide-react';
+import Loading from '../loading';
+import { useRef } from 'react';
 
 interface FilterProps {
     className?: string;
@@ -31,6 +33,7 @@ export default function Filter({ className, children, classNameGap }: FilterProp
     const [produced, setProduced] = useState<Produced>();
     const [minPrice, setMinPrice] = useState<string>('');
     const [maxPrice, setMaxPrice] = useState<string>('');
+    const lastQueryRef = useRef<string>("");
 
     useEffect(() => {
         publicApi.get("/colors")
@@ -75,8 +78,6 @@ export default function Filter({ className, children, classNameGap }: FilterProp
     }
 
     const changeValueForLink = () => {
-        setLoader(!loader);
-
         const queryParams = [
             name || "name",
             produced?.idfabricante || "produced",
@@ -84,12 +85,16 @@ export default function Filter({ className, children, classNameGap }: FilterProp
             model?.idtipo_veiculo || "type",
             minPrice ? FormatNumber.parseCurrency(minPrice) : "min-price",
             maxPrice ? FormatNumber.parseCurrency(maxPrice) : "max-price"
-        ].join("/");
+        ].join("/")
 
-        let link = `/search/${queryParams}`;
+        if (queryParams !== lastQueryRef.current && queryParams !== "name/produced/color/type/min-price/max-price") {
+            setLoader(true);
+            redirect(`/search/${queryParams}`);
+        }
 
-        redirect(link);
-    }
+        lastQueryRef.current = queryParams;
+        return; 
+    };
 
     return <div className={cn('flex items-center justify-center p-10 bg-primary', className)}>
         <div className='container flex flex-col items-center justify-center '>
@@ -129,7 +134,7 @@ export default function Filter({ className, children, classNameGap }: FilterProp
                     onClick={changeValueForLink}
                     className='hover:bg-secondary hover:text-offWhite font-bold bg-gray-300 '>
                     {loader
-                        ? <Loader className='animate-spin opacity-100  transition-opacity duration-1300 ease-in-out' />
+                        ? <Loading />
                         : <p className='font-bold text-md '>{'BUSCAR'}</p>
                     }
                 </Button>
