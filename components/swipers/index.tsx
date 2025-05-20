@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
-import argo from "@/src/img/carros/argo.jpeg"
-import chevette from "@/src/img/carros/chevette.jpeg"
-import hilux from "@/src/img/carros/hilux.jpeg"
+import React, { useState } from 'react';
+import argo from "@/src/img/carros/argo.jpeg";
+import chevette from "@/src/img/carros/chevette.jpeg";
+import hilux from "@/src/img/carros/hilux.jpeg";
 import Image from 'next/image';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';

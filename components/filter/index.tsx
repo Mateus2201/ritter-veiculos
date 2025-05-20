@@ -1,20 +1,21 @@
 "use client"
 
 import React, { useEffect, useState } from 'react';
-import FormatNumber from '../format/formatNumber';
 import Input from '../input';
 import Button from '../button';
 import Select from '../select';
-import Color from '@/src/type/color';
-import CarsOptions from '@/src/type/type-cars';
-import TypeCars from '@/src/type/type-cars';
-import publicApi from '@/src/services/publicApi';
 import { cn } from '@/lib/utils';
-import Produced from '@/src/type/produced';
 import { redirect } from 'next/navigation';
-import { Loader } from 'lucide-react';
 import Loading from '../loading';
 import { useRef } from 'react';
+
+import publicApi from '@/src/services/publicApi';
+
+import OptionalCategory from '@/types/OptionalCategory';
+import Manufacturer from '@/types/Manufacturers';
+import Color from '@/types/Colors';
+
+import FormatNumber from '../format/formatNumber';
 
 interface FilterProps {
     className?: string;
@@ -25,15 +26,16 @@ interface FilterProps {
 export default function Filter({ className, children, classNameGap }: FilterProps) {
     const [loader, setLoader] = useState<boolean>(false);
     const [name, setName] = useState<string>('');
-    const [colorOptions, setColorsOptions] = useState<Color[]>([]);
     const [color, setColors] = useState<Color>();
-    const [modelOptions, setModelsOptions] = useState<CarsOptions[]>([]);
-    const [model, setModels] = useState<TypeCars>();
-    const [producedOptions, setProducedOptions] = useState<Produced[]>([]);
-    const [produced, setProduced] = useState<Produced>();
+    const [model, setModels] = useState<OptionalCategory>();
+    const [manufacturer, setManufacturer] = useState<Manufacturer>();
     const [minPrice, setMinPrice] = useState<string>('');
     const [maxPrice, setMaxPrice] = useState<string>('');
     const lastQueryRef = useRef<string>("");
+
+    const [colorOptions, setColorsOptions] = useState<Color[]>([]);
+    const [modelOptions, setModelsOptions] = useState<OptionalCategory[]>([]);
+    const [manufacturerOption, setManufacturerOptions] = useState<Manufacturer[]>([]);
 
     useEffect(() => {
         publicApi.get("/colors")
@@ -56,9 +58,9 @@ export default function Filter({ className, children, classNameGap }: FilterProp
     }, []);
 
     useEffect(() => {
-        publicApi.get("/produced")
+        publicApi.get("/manufacturer")
             .then((res) => {
-                setProducedOptions(res.data)
+                setManufacturerOptions(res.data)
             })
             .catch(() => {
                 console.log("Acesso negado! Redirecionando...");
@@ -66,23 +68,23 @@ export default function Filter({ className, children, classNameGap }: FilterProp
     }, []);
 
     const changeSelectModel = (value: number) => {
-        setModels(modelOptions.find((model) => model.idtipo_veiculo == value));
+        setModels(modelOptions.find((model) => model.idOptionalCategory == value));
     }
 
     const changeSelectColors = (value: number) => {
-        setColors(colorOptions.find((color) => color.idcor == value));
+        setColors(colorOptions.find((color) => color.idColor == value));
     }
 
     const changeSelectProduced = (value: number) => {
-        setProduced(producedOptions.find((produced) => produced.idfabricante == value));
+        setManufacturer(manufacturerOption.find((produced) => produced.idManufacturer == value));
     }
 
     const changeValueForLink = () => {
         const queryParams = [
             name || "name",
-            produced?.idfabricante || "produced",
-            color?.idcor || "color",
-            model?.idtipo_veiculo || "type",
+            manufacturer?.idManufacturer || "produced",
+            color?.idColor || "color",
+            model?.idOptionalCategory || "type",
             minPrice ? FormatNumber.parseCurrency(minPrice) : "min-price",
             maxPrice ? FormatNumber.parseCurrency(maxPrice) : "max-price"
         ].join("/")
@@ -93,7 +95,7 @@ export default function Filter({ className, children, classNameGap }: FilterProp
         }
 
         lastQueryRef.current = queryParams;
-        return; 
+        return;
     };
 
     return <div className={cn('flex items-center justify-center p-10 bg-primary', className)}>
@@ -105,21 +107,21 @@ export default function Filter({ className, children, classNameGap }: FilterProp
                     onChange={({ target }) => setName(target.value)}
                     placeholder='Nome do carro' classNameDiv='md:col-span-6' />
                 <Select
-                    options={producedOptions.map(({ idfabricante, nome }) => ({ id: idfabricante, value: nome }))}
+                    options={manufacturerOption.map(({ idManufacturer, name }) => ({ id: idManufacturer, value: name }))}
                     onChange={({ target }) => changeSelectProduced(Number(target.value))}
-                    selectedValue={produced?.idfabricante}
+                    selectedValue={manufacturer?.idManufacturer}
                     placeholder='Fabricante'
                 />
                 <Select
-                    options={colorOptions.map(({ idcor, descricao }) => ({ id: idcor, value: descricao }))}
+                    options={colorOptions.map(({ idColor, description }) => ({ id: idColor, value: description }))}
                     onChange={({ target }) => changeSelectColors(Number(target.value))}
-                    selectedValue={color?.idcor}
+                    selectedValue={color?.idColor}
                     placeholder='Cores'
                 />
                 <Select
-                    options={modelOptions.map(({ idtipo_veiculo, descricao }) => ({ id: idtipo_veiculo, value: descricao }))}
+                    options={modelOptions.map(({ idOptionalCategory: idOptionalType, description }) => ({ id: idOptionalType, value: description }))}
                     onChange={({ target }) => changeSelectModel(Number(target.value))}
-                    selectedValue={model?.idtipo_veiculo}
+                    selectedValue={model?.idOptionalCategory}
                     placeholder='Modelo'
                 />
                 <Input

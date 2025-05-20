@@ -26,7 +26,7 @@ export default function CardInformationCar({ id }: CardInformationCarProps) {
     {car && <div className='xl:w-4/10 lg:p-5 pt-5'>
       <div className='xl:flex mt-4 bg-white rounded-xl p-3'>
         <SwiperImages id={id} />
-        <InformationCar id={id} car={car}/>
+        <InformationCar id={id} Vehicle={car}/>
       </div>
       <Optionals Car={car} />
     </div>}

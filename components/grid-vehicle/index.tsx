@@ -1,19 +1,19 @@
 import React from 'react'
 import CardCar from '../card-car';
-import Car from '@/src/type/cars';
+import Vehicle from '@/types/Vehicle';
 import { cn } from '@/lib/utils';
 import PropagateLoader from 'react-spinners/PropagateLoader';
 
 interface GridVehicleProps {
-    items: Car[]
+    Vehicles: Vehicle[]
     className?: string
     classNameCard?: string
 }
 
-export default function GridVehicle({ items, className, classNameCard }: GridVehicleProps) {
-    return <div className={cn("container xl:grid xl:grid-cols-3 gap-5", className)}>
-        {items
-            ? items.map(item => <CardCar key={item.idveiculo} car={item} className={classNameCard} />)
+export default function GridVehicle({ Vehicles, className, classNameCard }: GridVehicleProps) {
+    return <div className={cn("container md:grid md:grid-cols-2 xl:grid-cols-3 gap-5", className)}>
+        {Vehicles
+            ? Vehicles.map(item => <CardCar key={item.id} Vehicle={item} className={classNameCard} />)
             : <PropagateLoader color={'#000'} loading={true} size={15} />
         }
     </div>

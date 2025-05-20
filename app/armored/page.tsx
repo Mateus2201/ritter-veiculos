@@ -6,15 +6,14 @@ import publicApi from '@/src/services/publicApi';
 import ReactPaginate from 'react-paginate';
 import Filter from '@/components/filter';
 import { scroller } from "react-scroll";
-import Car from '@/src/type/cars';
-import PropagateLoader from "react-spinners/PropagateLoader";
+import Vehicle from '../../types/Vehicle';
 import Loading from '@/components/loading';
 
 const itensForPages = 9
 
 export default function ArmoredPage() {
     const [offset, setPageConfig] = useState<number>(0);
-    const [items, setItems] = useState<Car[]>([]);
+    const [items, setItems] = useState<Vehicle[]>([]);
     const [countCarsTotal, setCountCarsTotal] = useState<number>();
     const [loading, setLoading] = useState<boolean>(true);
 
@@ -47,15 +46,18 @@ export default function ArmoredPage() {
 
     return <div className=" min-h-screen bg-gray-300">
         <div className='container mx-auto  flex flex-col'>
-            <div className='md:flex h-full '>
-                <Filter className='filters w-full md:w-1/4 p-5 my-5 rounded-lg bg-white items-start'>
-                    <h1 className='text-3xl flex items-baseline font-bold text-background'>Blindados</h1>
-                </Filter>
+            <div className='md:flex h-full'>
+                <div className='w-full md:w-1/4 not-md:p-5 m-0'>
+                    <Filter className='filters rounded-lg p-5 md:my-5 bg-white items-start'>
+                        <h1 className='text-3xl flex items-baseline font-bold text-background'>Blindados</h1>
+                    </Filter>
+                </div>
+
                 {loading
                     ? <Loading />
-                    : <div className='h-full w-full md:w-3/4 p-5 '>
+                    : <div className='h-full w-full md:w-3/4 not-xl:px-5 not-xl:py-0 p-5'>
                         {items.length > 0 ? <div className={'max-w-full flex items-center justify-center '}>
-                            <GridVehicle items={items} classNameCard='bg-white text-primary' />
+                            <GridVehicle Vehicles={items} classNameCard='bg-white text-primary' />
                         </div> : <div className='flex items-center justify-center w-full h-full'>
                             <h1 className='text-3xl font-bold text-background'>Nenhum veículo encontrado</h1>
                         </div>}

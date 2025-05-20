@@ -7,20 +7,20 @@ import ReactPaginate from 'react-paginate';
 import Loading from '@/components/loading';
 import Filter from '@/components/filter';
 import { scroller } from "react-scroll";
-import Car from '@/src/type/cars';
+import Vehicle from '@/types/Vehicle';
 
 const itensForPages = 9
 
 export default function ClassisPage() {
     const [pageConfig, setPageConfig] = useState<number>(0);
-    const [items, setItems] = useState<Car[]>([]);
+    const [Vehicles, setVehicles] = useState<Vehicle[]>([]);
     const [countCarsTotal, setCountCarsTotal] = useState<number>();
     const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
         publicApi.get(`cars-stock/9/${pageConfig}`)
             .then((res) => {
-                setItems(res.data.cars);
+                setVehicles(res.data.cars);
                 setCountCarsTotal(res.data.count);
                 setLoading(false);
             })
@@ -52,9 +52,9 @@ export default function ClassisPage() {
                 </Filter>
                 {loading
                     ? <Loading />
-                    : <div className='h-full w-full md:w-3/4 p-5 '>
-                        {items.length > 0 ? <div className={'max-w-full flex items-center justify-center '}>
-                            <GridVehicle items={items} classNameCard='bg-white text-primary' />
+                    : <div className='h-full w-full md:w-3/4 not-xl:px-5 not-xl:py-0 p-5'>
+                        {Vehicles.length > 0 ? <div className={'max-w-full flex items-center justify-center '}>
+                            <GridVehicle Vehicles={Vehicles} classNameCard='bg-white text-primary' />
                         </div> : <div className='flex items-center justify-center w-full h-full'>
                             <h1 className='text-3xl font-bold text-background'>Nenhum veículo encontrado</h1>
                         </div>}

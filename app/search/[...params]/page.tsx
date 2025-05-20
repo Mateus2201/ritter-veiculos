@@ -57,9 +57,9 @@ export default function SearchPage() {
                 </Filter>
                 {loading
                     ? <Loading />
-                    : <div className='h-full w-full md:w-3/4 p-5 '>
+                    :  <div className='h-full w-full md:w-3/4 not-xl:px-5 not-xl:py-0 p-5'>
                         {items.length > 0 ? <div className={'max-w-full flex items-center justify-center '}>
-                            <GridVehicle items={items} classNameCard='bg-white text-primary' />
+                            <GridVehicle Vehicles={items} classNameCard='bg-white text-primary' />
                         </div> : <div className='flex items-center justify-center w-full h-full'>
                             <h1 className='text-3xl font-bold text-background'>Nenhum veículo encontrado</h1>
                         </div>}

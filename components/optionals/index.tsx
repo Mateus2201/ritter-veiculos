@@ -1,23 +1,23 @@
 'use client'
 
 import publicApi from '@/src/services/publicApi';
-import Car from '@/src/type/cars';
-import CarsOptions from '@/src/type/cars-options';
+import Vehicle from '@/types/Vehicle';
+import VehicleOptional from '@/types/VehicleOptional';
 import { Ban, CheckCheck } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
 
 interface CategoryProps {
-    Car: Car;
+    Vehicle: Vehicle;
 }
 
-export default function Optionals({ Car }: CategoryProps) {
-    const { idveiculo } = Car;
+export default function Optionals({ Vehicle }: CategoryProps) {
+    const { id } = Vehicle;
 
-    const [OptionsVehicles, setOptionsVehicles] = useState<CarsOptions[]>([])
-    const [groupedOptions, setGroupedOptions] = useState<Record<number, { descricao: string; opcionais: string[] }>>()
+    const [OptionsVehicles, setOptionsVehicles] = useState<VehicleOptional[]>([])
+    const [groupedOptions, setGroupedOptions] = useState<Record<number, { description: string; opcionais: string[] }>>()
 
     useEffect(() => {
-        publicApi.get(`/cars-options/`.concat(idveiculo.toString()))
+        publicApi.get(`/cars-options/`.concat(id.toString()))
             .then(({ data }) => setOptionsVehicles(data))
             .catch(() => {
                 console.log("Acesso negado! Redirecionando...");
@@ -26,18 +26,18 @@ export default function Optionals({ Car }: CategoryProps) {
 
     useEffect(() => {
         setGroupedOptions(
-            OptionsVehicles?.reduce((acc, { Opcional: optional }) => {
-                if (!optional.TipoOpcional) return acc;
+            OptionsVehicles?.reduce((acc, { optional: optional }) => {
+                if (!optional.OptionalType) return acc;
 
-                const { idtipo_opcional, descricao } = optional.TipoOpcional;
+                const { idOptionalCategory: idOptionalType, description } = optional.OptionalType;
 
-                if (!acc[idtipo_opcional]) {
-                    acc[idtipo_opcional] = { descricao, opcionais: [] };
+                if (!acc[idOptionalType]) {
+                    acc[idOptionalType] = { description, opcionais: [] };
                 }
 
-                acc[idtipo_opcional].opcionais.push(optional.nome);
+                acc[idOptionalType].opcionais.push(optional.name);
                 return acc;
-            }, {} as Record<number, { descricao: string; opcionais: string[] }>)
+            }, {} as Record<number, { description: string; opcionais: string[] }>)
         );
     }, [OptionsVehicles]);
 
@@ -45,9 +45,9 @@ export default function Optionals({ Car }: CategoryProps) {
         {OptionsVehicles.length > 0 && <h1 className="text-3xl font-semibold text-center w-full mb-5 ">Opcionais:</h1>}
         <div className="grid gap-10 lg:grid-cols-4 grid-cols-1 ">
             {OptionsVehicles.length > 0 ?
-                Object.entries(groupedOptions ?? {}).map(([id, { descricao, opcionais }]) =>
+                Object.entries(groupedOptions ?? {}).map(([id, { description, opcionais }]) =>
                     <div key={id} className="flex flex-col items-start justify-start  p-4 rounded-lg ">
-                        <h2 className="text-lg font-semibold ">{descricao}:</h2>
+                        <h2 className="text-lg font-semibold ">{description}:</h2>
                         {opcionais.map((nome) => <p key={nome} className="m-2 flex items-center gap-2"><CheckCheck /> {nome}</p>)}
                     </div>)
                 : <div className='flex space-x-2 items-center justify-center text-secondary'>
