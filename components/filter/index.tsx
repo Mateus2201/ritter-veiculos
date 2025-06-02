@@ -48,7 +48,7 @@ export default function Filter({ className, children, classNameGap }: FilterProp
     }, []);
 
     useEffect(() => {
-        publicApi.get("/car-type")
+        publicApi.get("/vehicle-category")
             .then((res) => {
                 setModelsOptions(res.data)
             })
