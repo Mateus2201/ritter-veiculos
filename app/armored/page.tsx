@@ -18,10 +18,10 @@ export default function ArmoredPage() {
     const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
-        publicApi.get(`cars-stock/9/${offset}`)
+        publicApi.get<{ cars: Vehicle[]; count: number }>(`cars-stock/9/${offset}`)
             .then((res) => {
-                setItems(res.data.cars);
-                setCountCarsTotal(res.data.count);
+                setItems(res.data?.cars ?? []);
+                setCountCarsTotal(res.data?.count ?? 0);
                 setLoading(false);
             })
             .catch(() => {
@@ -31,7 +31,7 @@ export default function ArmoredPage() {
 
     const totalPages = useMemo(() => {
         return countCarsTotal ? Math.ceil(countCarsTotal / itensForPages) : 0;
-    }, [countCarsTotal, itensForPages]);
+    }, [countCarsTotal]);
 
 
     const changePage = (event: { selected: number }) => {

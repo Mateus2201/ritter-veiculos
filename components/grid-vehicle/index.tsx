@@ -13,7 +13,7 @@ interface GridVehicleProps {
 export default function GridVehicle({ Vehicles, className, classNameCard }: GridVehicleProps) {
     return <div className={cn("container md:grid md:grid-cols-2 xl:grid-cols-3 gap-5", className)}>
         {Vehicles
-            ? Vehicles.map(item => <CardCar key={item.id} Vehicle={item} className={classNameCard} />)
+            ? Vehicles.map(item => <CardCar key={item.idVehicle} Vehicle={item} className={classNameCard} />)
             : <PropagateLoader color={'#000'} loading={true} size={15} />
         }
     </div>

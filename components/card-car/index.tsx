@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import React, { useState } from 'react'
 import { Calendar1, ClipboardList, Fuel, Gauge, Loader } from 'lucide-react';
 import Button from '../button';
@@ -14,12 +13,12 @@ interface CardCarProps {
 }
 
 export default function CardCar({ Vehicle, className }: CardCarProps) {
-    const { id, model, notes, price, engine, modelYear, manufacturingYear, fuel, mileage, priceDisplay } = Vehicle;
+    const { idVehicle, model, notes, price, engine, modelYear, manufacturingYear, fuel, mileage, priceDisplay } = Vehicle;
     const [loader, setLoader] = useState<boolean>(false);
 
-    return <div key={id} className={cn('xl:h-full not-xl:mt-5 rounded-lg text-offWhite', className)}>
+    return <div key={idVehicle} className={cn('xl:h-full not-xl:mt-5 rounded-lg text-offWhite', className)}>
         <div className='relative top-0 left-0 w-full md:h-60 h-70'>
-            <SwiperImages id={id} />
+            <SwiperImages id={idVehicle} />
         </div>
         <div className='mt-5 px-3'>
             <div className='flex justify-start items-baseline gap-1 m-5'>
@@ -42,7 +41,7 @@ export default function CardCar({ Vehicle, className }: CardCarProps) {
             </div>
         </div>
         <div className='p-2'>
-            <Link href={`/car/${id}`}>
+            <Link href={`/car/${idVehicle}`}>
                 <Button
                     onClick={() => { setLoader(true) }}
                     className='w-full bg-white text-background hover:bg-secondary hover:text-offWhite border rounded-lg border-gray-300 hover:border-0' >

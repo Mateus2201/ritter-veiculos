@@ -33,7 +33,7 @@ export default function AboutPage() {
     return <div className=' flex flex-col items-center justify-center '>
         <div className='container flex flex-col items-center justify-center p-5 '>
             <div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
-                {Topicos.map(({ title, paragraph, bg }, index) => (
+                {Topicos.map(({ title, paragraph }, index) => (
                     <div key={index} className={'flex flex-col rounded-xl shadow-xl bg-white'}>
                         <div className='overflow-auto scrollbar-hide rounded-lg backdrop-sepia-50'>
                             <div className='mx-auto h-100 overflow-y-scroll border-x border-x-gray-200 bg-cover bg-[center_-100px]' style={{ backgroundImage: 'url(${bg})' }}>

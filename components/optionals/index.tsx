@@ -11,13 +11,13 @@ interface CategoryProps {
 }
 
 export default function Optionals({ Vehicle }: CategoryProps) {
-    const { id } = Vehicle;
+    const { idVehicle } = Vehicle;
 
     const [OptionsVehicles, setOptionsVehicles] = useState<VehicleOptional[]>([])
     const [groupedOptions, setGroupedOptions] = useState<Record<number, { description: string; opcionais: string[] }>>()
 
     useEffect(() => {
-        publicApi.get(`/cars-options/`.concat(id.toString()))
+        publicApi.get(`/cars-options/`.concat(idVehicle.toString()))
             .then(({ data }) => setOptionsVehicles(data))
             .catch(() => {
                 console.log("Acesso negado! Redirecionando...");

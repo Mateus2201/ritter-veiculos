@@ -1,4 +1,4 @@
-import Optional from "./optional";
+import Optional from "./Optional";
 
 type VehicleOptional = {
   idVehicleOptional: number;

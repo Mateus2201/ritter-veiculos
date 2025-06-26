@@ -6,15 +6,14 @@ import publicApi from '@/src/services/publicApi';
 import ReactPaginate from 'react-paginate';
 import Filter from '@/components/filter';
 import { scroller, } from "react-scroll";
-import Car from '@/src/type/cars';
-import ScaleLoader from "react-spinners/ScaleLoader";
+import Vehicle from '@/types/Vehicle';
 import Loading from '@/components/loading';
 
 const itensForPages = 9
 
 export default function StockPage() {
     const [offset, setPageConfig] = useState<number>(0);
-    const [items, setItems] = useState<Car[]>([]);
+    const [items, setItems] = useState<Vehicle[]>([]);
     const [countCarsTotal, setCountCarsTotal] = useState<number>();
     const [loading, setLoading] = useState<boolean>(true);
 
@@ -22,7 +21,7 @@ export default function StockPage() {
         publicApi.get(`cars-stock/9/${offset}`)
             .then((res) => {
                 setItems(res.data.cars);
-                setCountCarsTotal(res.data.count);
+                setCountCarsTotal(res.data.count ?? 0);
                 setLoading(false);
             })
             .catch(() => {

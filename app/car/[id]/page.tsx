@@ -1,9 +1,6 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import argo from "@/src/img/vehicleros/argo.jpeg"
-import chevette from "@/src/img/vehicleros/chevette.jpeg"
-import hilux from "@/src/img/vehicleros/hilux.jpeg"
 import { Armchair, CalendarCheck2, ClipboardList, Factory, Fuel, Gauge, HandHelping, PaintbrushVertical, CarFront } from 'lucide-react';
 import Vehicle from '@/types/Vehicle';
 import publicApi from '@/src/services/publicApi';
@@ -14,22 +11,20 @@ import { scroller } from 'react-scroll';
 import Swipers from '@/components/swipers';
 import Button from '@/components/button';
 
-const images = [argo, argo, hilux, argo, chevette, chevette, chevette, hilux, chevette, hilux, hilux,];
-
-export default function vehiclePage() {
+export default function VehiclePage() {
     const params = useParams();
     const { id } = params as { id: string };
     const [vehicle, vetVehicle] = useState<Vehicle>();
 
     useEffect(() => {
-        publicApi.get(`vehicles/${id}`)
+        publicApi.get<{ cars: Vehicle }>(`vehicles/${id}`)
             .then((res) => {
-                vetVehicle(res.data)
+                vetVehicle(res.data?.cars ?? []);
             })
             .catch(() => {
                 console.log("Acesso negado! Redirecionando...");
             });
-    }, []);
+    }, [id]);
 
     useEffect(() => {
         scroller.scrollTo("vehicle", {

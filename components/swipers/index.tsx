@@ -3,7 +3,7 @@ import argo from "@/src/img/carros/argo.jpeg";
 import chevette from "@/src/img/carros/chevette.jpeg";
 import hilux from "@/src/img/carros/hilux.jpeg";
 import Image from 'next/image';
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { Swiper, SwiperClass, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -14,7 +14,8 @@ const images = [argo, argo, hilux, argo, chevette, chevette, chevette, hilux, ch
 
 export default function Swipers() {
 
-    const [mainSwiper, setMainSwiper] = useState<any>(null);
+    const [mainSwiper, setMainSwiper] = useState<SwiperClass | null>(null);
+
     const [selectedIndex, setSelectedIndex] = useState(0);
 
     return <div className="lg:flex lg:flex-row-reverse lg:w-6/10 w-full">

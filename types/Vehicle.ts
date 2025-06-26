@@ -3,10 +3,10 @@ import Manufacturer from "./Manufacturers";
 import VehicleType from "./VehicleType";
 
 type Vehicle = {
-  id: number; // idveiculo
-  vehicleTypeId: number; // idtipo_veiculo
-  manufacturerId: number; // idfabricante
-  colorId: number; // idcor
+  idVehicle: number; // idveiculo
+  idVehicleCategory: number; // idtipo_veiculo
+  idManufacturer: number; // idfabricante
+  idColor: number; // idcor
   licensePlate: string; // placa
   licensePlateDisplay: boolean; // exibicao_placa
   model: string; // modelo
