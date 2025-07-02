@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import SwiperImages from "../swiper-images";
 import InformationCar from "../information-car";
 import Optionals from "../optionals";
-import publicApi from "@/src/services/publicApi";
+import publicApi from "@/lib/publicApi";
 import Vehicle from '@/types/Vehicle';
 
 type CardInformationCarProps = {

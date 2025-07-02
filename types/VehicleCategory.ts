@@ -1,4 +1,4 @@
-type VehicleType = {
+type VehicleCategory = {
   idVehicleType: number;
   description: string;
   createdAt: Date;
@@ -6,4 +6,5 @@ type VehicleType = {
   updatedAt: Date;
   updatedBy: string;
 };
-export default VehicleType;
+export default VehicleCategory;
+

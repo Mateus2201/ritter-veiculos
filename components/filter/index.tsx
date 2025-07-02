@@ -9,7 +9,7 @@ import { redirect } from 'next/navigation';
 import Loading from '../loading';
 import { useRef } from 'react';
 
-import publicApi from '@/src/services/publicApi';
+import publicApi from '@/lib/publicApi';
 
 import OptionalCategory from '@/types/OptionalCategory';
 import Manufacturer from '@/types/Manufacturers';

@@ -3,7 +3,7 @@
 import Vehicle from '@/types/Vehicle';
 import React, { useEffect, useState } from 'react';
 import GridVehicle from '../grid-vehicle';
-import publicApi from '@/src/services/publicApi';
+import publicApi from '@/lib/publicApi';
 
 export default function GridHighlights() {
     const [Vehicles, setVehicles] = useState<Vehicle[]>([])

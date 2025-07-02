@@ -1,6 +1,6 @@
 'use client'
 
-import publicApi from '@/src/services/publicApi';
+import publicApi from '@/lib/publicApi';
 import Vehicle from '@/types/Vehicle';
 import VehicleOptional from '@/types/VehicleOptional';
 import { Ban, CheckCheck } from 'lucide-react'
@@ -17,12 +17,14 @@ export default function Optionals({ Vehicle }: CategoryProps) {
     const [groupedOptions, setGroupedOptions] = useState<Record<number, { description: string; opcionais: string[] }>>()
 
     useEffect(() => {
+        if(!idVehicle) return;
+        
         publicApi.get(`/cars-options/`.concat(idVehicle.toString()))
             .then(({ data }) => setOptionsVehicles(data))
             .catch(() => {
                 console.log("Acesso negado! Redirecionando...");
             });
-    }, []);
+    }, [idVehicle]);
 
     useEffect(() => {
         setGroupedOptions(

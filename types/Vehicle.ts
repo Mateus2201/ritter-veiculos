@@ -1,6 +1,6 @@
 import Color from "./Colors";
 import Manufacturer from "./Manufacturers";
-import VehicleType from "./VehicleType";
+import VehicleCategory from "./VehicleCategory";
 
 type Vehicle = {
   idVehicle: number; // idveiculo
@@ -26,14 +26,15 @@ type Vehicle = {
   allowsTrade: boolean; // aceita_troca
   sold: boolean; // vendido
   notes: string; // observacao
-  createdAt: Date; // data_cadastro
-  createdBy: string; // login_cadastro
-  updatedAt: Date; // data_ultima_alteracao
-  updatedBy: string; // login_ultima_alteracao
-  Manufacturer: Manufacturer
-  VehicleType: VehicleType
-  Color: Color
+  createdAt?: Date; // data_cadastro
+  createdBy?: string; // login_cadastro
+  updatedAt?: Date; // data_ultima_alteracao
+  updatedBy?: string; // login_ultima_alteracao
+  armored?: boolean; // blindado,
+  classic?: boolean; // classico
+  Manufacturer: Manufacturer;
+  VehicleType: VehicleCategory;
+  Color: Color;
 };
-
 
 export default Vehicle;
