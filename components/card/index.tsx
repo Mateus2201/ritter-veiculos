@@ -31,10 +31,10 @@ export default function CardCar({ Vehicle, className }: CardCarProps) {
             </div>
 
             <div className='flex justify-between items-center m-5'>
-                <h1 className='text-3xl font-bold'> {priceDisplay ? FormatNumber.formatPrice(price) : ('R$ ').concat(price.toString().replace(/./g, "*"))}</h1>
+                {/* <h1 className='text-3xl font-bold'> {priceDisplay ? FormatNumber.formatPrice(price) : ('R$ ').concat(price.toString().replace(/./g, "*"))}</h1> */}
             </div>
             <div className='grid grid-cols-1 gap-5 md:gap-2 m-5 md:relative w-full overflow-hidden whitespace-nowrap'>
-                <p className="z-21 flex items-center gap-2 w-full overflow-hidden whitespace-nowrap text-ellipsis"><ClipboardList /> {FormatNumber.formatPlate(Vehicle.licensePlate, Vehicle?.licensePlateDisplay)}  </p>
+                {/* <p className="z-21 flex items-center gap-2 w-full overflow-hidden whitespace-nowrap text-ellipsis"><ClipboardList /> {FormatNumber.formatPlate(Vehicle.licensePlate, Vehicle?.licensePlateDisplay)}  </p> */}
                 <p className='z-21 flex items-center gap-2 w-full overflow-hidden whitespace-nowrap text-ellipsis'><Calendar1 />{modelYear} / {manufacturingYear} </p>
                 <p className='z-23 flex items-center gap-2 w-full overflow-hidden whitespace-nowrap text-ellipsis'><Fuel />{fuel} </p>
                 <p className='z-22 flex items-center gap-2 w-full overflow-hidden whitespace-nowrap text-ellipsis'><Gauge />{mileage} </p>

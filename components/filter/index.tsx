@@ -3,19 +3,17 @@
 import React, { useEffect, useState } from 'react';
 import Input from '../input';
 import Button from '../button';
-import Select from '../select';
+import SelectComponent from '../select';
 import { cn } from '@/lib/utils';
 import { redirect } from 'next/navigation';
 import Loading from '../loading';
 import { useRef } from 'react';
-
 import publicApi from '@/lib/publicApi';
-
-import OptionalCategory from '@/types/OptionalCategory';
 import Manufacturer from '@/types/Manufacturers';
 import Color from '@/types/Colors';
-
+import VehicleCategory from '@/types/VehicleCategory';
 import FormatNumber from '../format/formatNumber';
+
 
 interface FilterProps {
     className?: string;
@@ -27,18 +25,18 @@ export default function Filter({ className, children, classNameGap }: FilterProp
     const [loader, setLoader] = useState<boolean>(false);
     const [name, setName] = useState<string>('');
     const [color, setColors] = useState<Color>();
-    const [model, setModels] = useState<OptionalCategory>();
+    const [model, setModels] = useState<VehicleCategory>();
     const [manufacturer, setManufacturer] = useState<Manufacturer>();
     const [minPrice, setMinPrice] = useState<string>('');
     const [maxPrice, setMaxPrice] = useState<string>('');
     const lastQueryRef = useRef<string>("");
 
     const [colorOptions, setColorsOptions] = useState<Color[]>([]);
-    const [modelOptions, setModelsOptions] = useState<OptionalCategory[]>([]);
+    const [modelOptions, setModelsOptions] = useState<VehicleCategory[]>([]);
     const [manufacturerOption, setManufacturerOptions] = useState<Manufacturer[]>([]);
 
     useEffect(() => {
-        publicApi.get("/colors")
+        publicApi.get<Color[]>("/colors")
             .then((res) => {
                 setColorsOptions(res.data)
             })
@@ -48,7 +46,7 @@ export default function Filter({ className, children, classNameGap }: FilterProp
     }, []);
 
     useEffect(() => {
-        publicApi.get("/vehicle-category")
+        publicApi.get<VehicleCategory[]>("/vehicle-category")
             .then((res) => {
                 setModelsOptions(res.data)
             })
@@ -58,7 +56,7 @@ export default function Filter({ className, children, classNameGap }: FilterProp
     }, []);
 
     useEffect(() => {
-        publicApi.get("/manufacturer")
+        publicApi.get<Manufacturer[]>("/manufacturer")
             .then((res) => {
                 setManufacturerOptions(res.data)
             })
@@ -67,24 +65,12 @@ export default function Filter({ className, children, classNameGap }: FilterProp
             });
     }, []);
 
-    const changeSelectModel = (value: number) => {
-        setModels(modelOptions.find((model) => model.idOptionalCategory == value));
-    }
-
-    const changeSelectColors = (value: number) => {
-        setColors(colorOptions.find((color) => color.idColor == value));
-    }
-
-    const changeSelectProduced = (value: number) => {
-        setManufacturer(manufacturerOption.find((produced) => produced.idManufacturer == value));
-    }
-
     const changeValueForLink = () => {
         const queryParams = [
             name || "name",
             manufacturer?.idManufacturer || "produced",
             color?.idColor || "color",
-            model?.idOptionalCategory || "type",
+            model?.idVehicleCategory || "type",
             minPrice ? FormatNumber.parseCurrency(minPrice) : "min-price",
             maxPrice ? FormatNumber.parseCurrency(maxPrice) : "max-price"
         ].join("/")
@@ -106,23 +92,34 @@ export default function Filter({ className, children, classNameGap }: FilterProp
                     value={name}
                     onChange={({ target }) => setName(target.value)}
                     placeholder='Nome do carro' classNameDiv='md:col-span-6' />
-                <Select
-                    options={manufacturerOption.map(({ idManufacturer, name }) => ({ id: idManufacturer, value: name }))}
-                    onChange={({ target }) => changeSelectProduced(Number(target.value))}
-                    selectedValue={manufacturer?.idManufacturer}
-                    placeholder='Fabricante'
+                <SelectComponent
+                    id="manufacturer"
+                    options={manufacturerOption.map(({ idManufacturer, name }) => ({
+                        value: idManufacturer,
+                        description: name,
+                    }))}
+                    value={manufacturer?.idManufacturer}
+                    onChange={(val) => setManufacturer(manufacturerOption.find((produced) => produced.idManufacturer == val))}
+                    label="Fabricante"
                 />
-                <Select
-                    options={colorOptions.map(({ idColor, description }) => ({ id: idColor, value: description }))}
-                    onChange={({ target }) => changeSelectColors(Number(target.value))}
-                    selectedValue={color?.idColor}
-                    placeholder='Cores'
+                <SelectComponent
+                    id="colors"
+                    options={colorOptions.map(({ idColor, description }) => ({
+                        value: idColor, description
+                    }))}
+                    value={color?.idColor}
+                    onChange={(val) => setColors(colorOptions.find((color) => color.idColor == val))}
+                    label="Cores"
                 />
-                <Select
-                    options={modelOptions.map(({ idOptionalCategory: idOptionalType, description }) => ({ id: idOptionalType, value: description }))}
-                    onChange={({ target }) => changeSelectModel(Number(target.value))}
-                    selectedValue={model?.idOptionalCategory}
-                    placeholder='Modelo'
+                <SelectComponent
+                    id="vehicleCategory"
+                    label="Categoria"
+                    value={model?.idVehicleCategory}
+                    onChange={(val) => setModels(modelOptions.find((model) => model.idVehicleCategory == val))}
+                    options={modelOptions.map(({ idVehicleCategory: idVehicleType, description }) => ({
+                        value: idVehicleType,
+                        description,
+                    }))}
                 />
                 <Input
                     value={minPrice}
@@ -134,7 +131,7 @@ export default function Filter({ className, children, classNameGap }: FilterProp
                     placeholder='Preço Máximo (R$)' />
                 <Button
                     onClick={changeValueForLink}
-                    className='hover:bg-secondary hover:text-offWhite font-bold bg-gray-300 '>
+                    className='hover:bg-secondary hover:text-offWhite font-bold bg-red-700 '>
                     {loader
                         ? <Loading />
                         : <p className='font-bold text-md '>{'BUSCAR'}</p>

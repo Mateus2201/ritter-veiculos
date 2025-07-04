@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useMemo, useState } from 'react';
-import GridVehicle from '@/components/grid-vehicle';
+import Grid from '@/components/grid-vehicle';
 import publicApi from '@/lib/publicApi';
 import ReactPaginate from 'react-paginate';
 import Loading from '@/components/loading';
@@ -54,7 +54,7 @@ export default function ClassisPage() {
                     ? <Loading />
                     : <div className='h-full w-full md:w-3/4 not-xl:px-5 not-xl:py-0 p-5'>
                         {Vehicles.length > 0 ? <div className={'max-w-full flex items-center justify-center '}>
-                            <GridVehicle Vehicles={Vehicles} classNameCard='bg-white text-primary' />
+                            <Grid Vehicles={Vehicles} classNameCard='bg-white text-primary' />
                         </div> : <div className='flex items-center justify-center w-full h-full'>
                             <h1 className='text-3xl font-bold text-background'>Nenhum veículo encontrado</h1>
                         </div>}

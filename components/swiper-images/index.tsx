@@ -33,7 +33,7 @@ export default function SwiperImages({  }: SwiperImagesProps) {
     >
         {images.map((image, index) => (
             <SwiperSlide key={index} className='cursor-pointer' >
-                <Image src={image} alt={`imagem-${index}`} className='h-auto not-lg:h-full w-auto not-lg:w-full'/>
+                <Image src={image} alt={`imagem-${index}`} className='h-auto not-lg:h-full w-auto not-lg:w-full z-1'/>
             </SwiperSlide>
         ))}
     </Swiper>

@@ -4,7 +4,7 @@ import publicApi from '@/lib/publicApi';
 import Vehicle from '@/types/Vehicle';
 import VehicleOptional from '@/types/VehicleOptional';
 import { Ban, CheckCheck } from 'lucide-react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 interface CategoryProps {
     Vehicle: Vehicle;
@@ -17,8 +17,8 @@ export default function Optionals({ Vehicle }: CategoryProps) {
     const [groupedOptions, setGroupedOptions] = useState<Record<number, { description: string; opcionais: string[] }>>()
 
     useEffect(() => {
-        if(!idVehicle) return;
-        
+        if (!idVehicle) return;
+
         publicApi.get(`/cars-options/`.concat(idVehicle.toString()))
             .then(({ data }) => setOptionsVehicles(data))
             .catch(() => {

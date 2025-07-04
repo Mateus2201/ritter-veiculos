@@ -1,23 +1,13 @@
 "use client";
 
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import publicApi from "@/lib/publicApi";
 import ReactPaginate from "react-paginate";
 import Filter from "@/components/filter";
 import { scroller } from "react-scroll";
 import Vehicle from "@/types/Vehicle";
 import Loading from "@/components/loading";
-import SwiperImages from "@/components/swiper-images";
-import Link from "next/link";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import {
-    ClipboardList,
-    Calendar1,
-    Fuel,
-    Gauge,
-    Loader,
-} from "lucide-react";
+import Grid from "@/components/grid-vehicle";
 
 const itensForPages = 9;
 
@@ -30,10 +20,10 @@ export default function StockPage() {
 
     useEffect(() => {
         publicApi
-            .get(`/cars-stock/9/${offset}`)
-            .then((res) => {
-                setItems(res.data.cars);
-                setCountCarsTotal(res.data.count ?? 0);
+            .get<{ cars: Vehicle[]; count?: number }>(`/cars-stock/9/${offset}`)
+            .then(({ data }) => {
+                setItems(data.cars);
+                setCountCarsTotal(data.count ?? 0);
                 setLoading(false);
             })
             .catch(() => {
@@ -64,100 +54,14 @@ export default function StockPage() {
                         </Filter>
                     </div>
                 </div>
-
                 <div className="w-full xl:w-3/4">
-                    {loading ? (
-                        <Loading />
-                    ) : (
-                        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
-                            {items.map((vehicle) => (
-                                <div
-                                    key={vehicle.idVehicle}
-                                    className="bg-white rounded-2xl overflow-hidden border border-gray-200 shadow-lg hover:shadow-2xl transition-transform hover:-translate-y-1 flex flex-col"
-                                >
-                                    <div className="h-60 w-full relative">
-                                        <SwiperImages id={vehicle.idVehicle} />
-                                        {!!vehicle.sold && (
-                                            <Badge className="absolute top-4 left-4 bg-red-600 text-white">
-                                                Vendido
-                                            </Badge>
-                                        )}
-                                        {!!vehicle.featured && !vehicle.sold && (
-                                            <Badge className="absolute top-4 left-4 bg-green-600 text-white">
-                                                Destaque
-                                            </Badge>
-                                        )}
-                                    </div>
-
-                                    <div className="p-5 flex-1 flex flex-col justify-between">
-                                        <div>
-                                            <div className="flex justify-between items-center mb-3">
-                                                <h2 className="text-xl font-bold text-gray-800">
-                                                    {vehicle.model}
-                                                </h2>
-                                                <p className="text-lg font-semibold text-indigo-600">
-                                                    {vehicle.priceDisplay && vehicle.price > 0
-                                                        ? `R$ ${vehicle.price.toLocaleString("pt-BR")}`
-                                                        : "Sob consulta"}
-                                                </p>
-                                            </div>
-
-                                            <div className="grid grid-cols-2 gap-2 text-sm text-gray-600 mb-3">
-                                                <p className="flex items-center gap-1">
-                                                    <ClipboardList className="w-4 h-4" />
-                                                    {vehicle.licensePlateDisplay
-                                                        ? vehicle.licensePlate
-                                                        : "Placa oculta"}
-                                                </p>
-                                                <p className="flex items-center gap-1">
-                                                    <Calendar1 className="w-4 h-4" />
-                                                    {vehicle.modelYear}/{vehicle.manufacturingYear}
-                                                </p>
-                                                <p className="flex items-center gap-1">
-                                                    <Fuel className="w-4 h-4" />
-                                                    {vehicle.fuel}
-                                                </p>
-                                                <p className="flex items-center gap-1">
-                                                    <Gauge className="w-4 h-4" />
-                                                    {vehicle.mileage.toLocaleString("pt-BR")} km
-                                                </p>
-                                            </div>
-
-                                            <div className="flex flex-wrap gap-2">
-                                                {!!vehicle.armored && (
-                                                    <Badge className="bg-yellow-400 text-black">Blindado</Badge>
-                                                )}
-                                                {!!vehicle.allowsTrade && (
-                                                    <Badge className="bg-blue-600 text-white">Aceita troca</Badge>
-                                                )}
-                                                {!!vehicle.allowsProposal && (
-                                                    <Badge className="bg-purple-600 text-white">Aceita proposta</Badge>
-                                                )}
-                                            </div>
-                                        </div>
-
-                                        <div className="pt-5">
-                                            <Link href={`/car/${vehicle.idVehicle}`}>
-                                                <Button
-                                                    onClick={() => setLoader(vehicle.idVehicle)}
-                                                    className="w-full bg-indigo-600 hover:bg-indigo-700 text-white"
-                                                >
-                                                    {loader === vehicle.idVehicle ? (
-                                                        <Loader className="animate-spin h-5 w-5" />
-                                                    ) : (
-                                                        <span>Ver Mais</span>
-                                                    )}
-                                                </Button>
-                                            </Link>
-                                        </div>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    )}
-
-                    {typeof countCarsTotal === "number" && countCarsTotal > 9 && (
-                        <ReactPaginate
+                    {loading
+                        ? <Loading />
+                        : <Grid vehicles={items} />
+                    }
+                    {typeof countCarsTotal === "number"
+                        && countCarsTotal > 9
+                        && <ReactPaginate
                             previousLabel={"Anterior"}
                             nextLabel={"Próximo"}
                             breakLabel={"..."}
@@ -172,8 +76,7 @@ export default function StockPage() {
                             pageClassName="select-none items-center not-md:hidden hover:bg-secondary hover:text-offWhite border-white rounded-md p-2"
                             breakClassName="select-none items-center not-md:hidden hover:bg-secondary hover:text-offWhite border-white rounded-md p-2"
                             disabledClassName="select-none items-center not-md:hidden hover:bg-secondary hover:text-offWhite border-white rounded-md p-2"
-                        />
-                    )}
+                        />}
                 </div>
             </div>
         </div>

@@ -1,5 +1,4 @@
 import Vehicles from '@/types/Vehicle';
-import React from 'react'
 import { Armchair, CalendarCheck2, ClipboardList, Factory, Fuel, Gauge, HandHelping, Joystick, PaintbrushVertical } from 'lucide-react';
 import FormatNumber from '@/components/format/formatNumber';
 

@@ -1,26 +1,51 @@
-import { cn } from '@/lib/utils';
-import React from 'react';
+import { cn } from '@/lib/utils'
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from '../ui/select'
 
-interface SelectProps {
-    options: { id: number, value: string }[];
-    selectedValue?: number;
-    onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-    placeholder?: string;
-    classNameDiv?: string;
-    classNameSelect?: string;
+interface Option {
+    value: number | string
+    description: string
 }
 
-export default function Select({ options, selectedValue, onChange, placeholder = 'Selecione uma opção', classNameDiv = '', classNameSelect = '', }: SelectProps) {
-    return <div className={`mt-5 w-full ${classNameDiv}`}>
-        <select
-            value={selectedValue || 0}
-            onChange={onChange}
-            className={cn('w-full border border-background bg-white outline-none h-10 px-3 rounded-sm ', classNameSelect)}
+interface SelectComponentProps {
+    id: string
+    label?: string
+    value?: string | number
+    onChange?: (value: string | number) => void
+    options: Option[]
+    classNameWrapper?: string
+    classNameSelect?: string
+}
+
+export default function SelectComponent({
+    id,
+    label = 'Selecione uma opção',
+    value,
+    onChange,
+    options,
+    classNameWrapper = '',
+    classNameSelect = '',
+}: SelectComponentProps) {
+    return <div className={cn('mt-5 w-full', classNameWrapper)}>
+        <Select
+            onValueChange={onChange}
+            value={value ? String(value) : ''}
         >
-            <option value="" className='text-[#A9A9A9]'>{placeholder}</option>
-            {options.map(({ id, value }) => (
-                <option key={id} value={id}>{value}</option>
-            ))}
-        </select>
+            <SelectTrigger className={cn('w-full border border-background bg-white outline-none h-10 px-3 rounded-sm', classNameSelect)} id={id}>
+                <SelectValue placeholder={label} />
+            </SelectTrigger>
+            <SelectContent className="z-10 bg-white max-h-60 overflow-auto">
+                {options.map((opt, ind) => (
+                    <SelectItem key={ind} value={String(opt.value)}>
+                        {opt.description}
+                    </SelectItem>
+                ))}
+            </SelectContent>
+        </Select>
     </div>
-};
+}

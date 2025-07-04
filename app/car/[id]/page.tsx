@@ -27,9 +27,17 @@ export default function VehiclePage() {
     const [vehicle, setVehicle] = useState<Vehicle>();
 
     useEffect(() => {
-        publicApi.get(`/cars/${id}`)
-            .then((res) => setVehicle(res.data?.cars ?? []))
-            .catch(() => console.log("Acesso negado! Redirecionando..."));
+        interface CarsResponse {
+            cars: Vehicle;
+        }
+
+        publicApi.get<CarsResponse>(`/cars/${id}`)
+            .then((res: { data: CarsResponse }) => {
+                console.log("Carro encontrado:", res.data?.cars);
+
+                setVehicle(res.data?.cars ?? []);
+            })
+            .catch((): void => { console.log("Acesso negado! Redirecionando..."); });
     }, [id]);
 
     useEffect(() => {

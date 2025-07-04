@@ -2,14 +2,14 @@
 
 import Vehicle from '@/types/Vehicle';
 import React, { useEffect, useState } from 'react';
-import GridVehicle from '../grid-vehicle';
+import Grid from '../grid-vehicle';
 import publicApi from '@/lib/publicApi';
 
 export default function GridHighlights() {
     const [Vehicles, setVehicles] = useState<Vehicle[]>([])
 
     useEffect(() => {
-        publicApi.get("cars-highlights/9")
+        publicApi.get<Vehicle[]>("cars-highlights/9")
             .then((res) => setVehicles(res.data))
             .catch(() => {
                 console.log("Acesso negado! Redirecionando...");
@@ -20,9 +20,9 @@ export default function GridHighlights() {
 
 
     return <>
-        {/* {cars.length === 0 &&
+        {Vehicles.length === 0 &&
             <div className={'max-w-full flex items-center justify-center p-10 bg-gray-300'}>
-                <GridVehicle classNameCard='bg-white text-primary' items={cars} />
-            </div>} */}
+                <Grid classNameCard='bg-white text-primary' vehicles={Vehicles} />
+            </div>}
     </>
 };
