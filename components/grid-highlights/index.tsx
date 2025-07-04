@@ -22,7 +22,7 @@ export default function GridHighlights() {
     return <>
         {Vehicles.length === 0 &&
             <div className={'max-w-full flex items-center justify-center p-10 bg-gray-300'}>
-                <Grid classNameCard='bg-white text-primary' vehicles={Vehicles} />
+                <Grid classNameCard='bg-white text-primary' Vehicles={Vehicles} />
             </div>}
     </>
 };
