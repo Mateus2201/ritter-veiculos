@@ -17,12 +17,16 @@ const images = [argo, argo, hilux, argo, chevette, chevette, chevette, hilux, ch
 
 
 
-export default function Swipers(idVehicle?: number) {
+type SwipersProps = {
+    idVehicle?: number;
+};
+
+export default function Swipers({ idVehicle }: SwipersProps) {
     const isMobile = useIsMobile();
     const [mainSwiper, setMainSwiper] = useState<SwiperClass | null>(null);
     const [selectedIndex, setSelectedIndex] = useState(0);
 
-    
+
 
     return <div className="lg:flex lg:flex-row-reverse gap-4 w-full h-full max-w-5xl mx-auto">
         {/* Swiper principal */}

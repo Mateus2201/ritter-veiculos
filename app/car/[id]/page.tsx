@@ -48,7 +48,7 @@ export default function VehiclePage() {
 
     return <div className="bg-gray-100 min-h-screen py-10 px-4">
         <div className=" mx-auto bg-white shadow-xl rounded-3xl p-8 flex flex-col lg:flex-row gap-10">
-            <Swipers />
+            <Swipers idVehicle={vehicle.idVehicle} />
             <div className="flex-1 flex flex-col justify-between">
                 <div>
                     {/* Título + Preço */}
