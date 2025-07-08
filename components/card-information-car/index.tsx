@@ -15,8 +15,8 @@ export default function CardInformationCar({ id }: CardInformationCarProps) {
   const [useVehicle, setVehicle] = useState<Vehicle>();
 
   useEffect(() => {
-    publicApi.get<{ Vehicle: Vehicle }>('cars/'.concat(id))
-      .then((res) => setVehicle(res.data.Vehicle))
+    publicApi.get<Vehicle>('cars/'.concat(id))
+      .then((res) => setVehicle(res.data))
       .catch(() => {
         console.log("Acesso negado! Redirecionando...");
       });

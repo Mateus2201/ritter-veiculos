@@ -19,7 +19,7 @@ export default function Optionals({ Vehicle }: CategoryProps) {
     useEffect(() => {
         if (!idVehicle) return;
 
-        publicApi.get(`/cars-options/`.concat(idVehicle.toString()))
+        publicApi.get<VehicleOptional[]>(`/cars-options/`.concat(idVehicle.toString()))
             .then(({ data }) => setOptionsVehicles(data))
             .catch(() => {
                 console.log("Acesso negado! Redirecionando...");
