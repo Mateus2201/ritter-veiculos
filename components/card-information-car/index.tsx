@@ -15,8 +15,8 @@ export default function CardInformationCar({ id }: CardInformationCarProps) {
   const [useVehicle, setVehicle] = useState<Vehicle>();
 
   useEffect(() => {
-    publicApi.get('cars/'.concat(id))
-      .then((res) => setVehicle(res.data))
+    publicApi.get<{ Vehicle: Vehicle }>('cars/'.concat(id))
+      .then((res) => setVehicle(res.data.Vehicle))
       .catch(() => {
         console.log("Acesso negado! Redirecionando...");
       });
@@ -26,7 +26,7 @@ export default function CardInformationCar({ id }: CardInformationCarProps) {
     {useVehicle && <div className='xl:w-4/10 lg:p-5 pt-5'>
       <div className='xl:flex mt-4 bg-white rounded-xl p-3'>
         <SwiperImages id={useVehicle.idVehicle} />
-        <InformationCar Vehicle={useVehicle}/>
+        <InformationCar Vehicle={useVehicle} />
       </div>
       <Optionals Vehicle={useVehicle} />
     </div>}
