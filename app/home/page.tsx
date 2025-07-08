@@ -7,9 +7,7 @@ import foto2 from '@/src/img/banner.png';
 export default function HomePage() {
     return <div className='w-screen'>
         <Carousel images={[foto1, foto2]} />
-        <Filter classNameGap='md:grid md:grid-cols-6 md:gap-5 '>
-            <h1 className='md:text-5xl md:w-4xl font-bold text-offWhite'> Seu carro aqui: </h1>
-        </Filter>
+        <Filter classNameGap='md:grid md:grid-cols-6 md:gap-5 ' titleFilters='Seu carro aqui:' />
         <GridHighlights />
     </div>
 }

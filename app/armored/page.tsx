@@ -45,7 +45,7 @@ export default function ArmoredPage() {
 
     return <div className="min-h-screen bg-gray-300">
         <div className="container mx-auto flex flex-col xl:flex-row gap-4 p-4">
-            <Filter titleFilters="Blindados" className="w-full p-5 rounded-xl bg-white rounded-xl overflow-hidden border border-gray-200 shadow-lg min-h-[490px]" />
+            <Filter titleFilters="Blindados" className="w-full p-5 bg-white rounded-xl overflow-hidden border border-gray-200 shadow-lg min-h-[490px]" />
             <div className="w-full xl:w-3/4">
                 {loading
                     ? <Loading />

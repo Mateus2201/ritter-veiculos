@@ -1,6 +1,13 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
+import Vehicle from '@/types/Vehicle';
+import publicApi from '@/lib/publicApi';
+import { useParams } from 'next/navigation';
+import { scroller } from 'react-scroll';
+import Swipers from '@/components/swipers';
+import Button from '@/components/button';
+
 import {
     Armchair,
     CalendarCheck2,
@@ -11,14 +18,7 @@ import {
     PaintbrushVertical,
     CarFront,
 } from 'lucide-react';
-import Vehicle from '@/types/Vehicle';
-import publicApi from '@/lib/publicApi';
-import Optionals from '@/components/optionals';
-import { useParams } from 'next/navigation';
-import { scroller } from 'react-scroll';
-import Swipers from '@/components/swipers';
-import Button from '@/components/button';
-import SwiperImages from '@/components/swiper-images';
+
 
 export default function VehiclePage() {
     const params = useParams();

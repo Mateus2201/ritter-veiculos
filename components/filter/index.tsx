@@ -16,7 +16,7 @@ import FormatNumber from '../format/formatNumber';
 
 
 interface FilterProps {
-    titleFilters: 'Estoque' | 'Blindados' | 'Clássicos' | 'Busca';
+    titleFilters: 'Estoque' | 'Blindados' | 'Clássicos' | 'Busca' | 'Seu carro aqui:';
     className?: string;
     children?: React.ReactNode;
     classNameGap?: string;
