@@ -13,7 +13,6 @@ import {
 } from 'lucide-react';
 import Vehicle from '@/types/Vehicle';
 import publicApi from '@/lib/publicApi';
-import FormatNumber from '@/components/format/formatNumber';
 import Optionals from '@/components/optionals';
 import { useParams } from 'next/navigation';
 import { scroller } from 'react-scroll';
@@ -27,15 +26,12 @@ export default function VehiclePage() {
     const [vehicle, setVehicle] = useState<Vehicle>();
 
     useEffect(() => {
-        interface CarsResponse {
-            cars: Vehicle;
-        }
 
-        publicApi.get<CarsResponse>(`/cars/${id}`)
-            .then((res: { data: CarsResponse }) => {
-                console.log("Carro encontrado:", res.data?.cars);
+        publicApi.get<Vehicle>(`/cars/${id}`)
+            .then((res) => {
+                console.log("Carro encontrado:", res.data);
 
-                setVehicle(res.data?.cars ?? []);
+                setVehicle(res.data);
             })
             .catch((): void => { console.log("Acesso negado! Redirecionando..."); });
     }, [id]);
@@ -51,16 +47,8 @@ export default function VehiclePage() {
     if (!vehicle) return null;
 
     return <div className="bg-gray-100 min-h-screen py-10 px-4">
-        <div className="max-w-7xl mx-auto bg-white shadow-xl rounded-3xl p-8 flex flex-col lg:flex-row gap-10">
-
-            {/* Galeria */}
-            <div className="flex-1/3 w-full lg:w-1/3">
-                <div className="rounded-xl overflow-hidden shadow-md">
-                    <SwiperImages id={1} />
-                </div>
-            </div>
-
-            {/* Informações */}
+        <div className=" mx-auto bg-white shadow-xl rounded-3xl p-8 flex flex-col lg:flex-row gap-10">
+            <Swipers />
             <div className="flex-1 flex flex-col justify-between">
                 <div>
                     {/* Título + Preço */}
@@ -129,7 +117,7 @@ export default function VehiclePage() {
                         target="_blank"
                         rel="noopener noreferrer"
                     >
-                        <Button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white text-base">
+                        <Button className="hover:bg-secondary hover:text-offWhite font-bold bg-red-700  text-white w-full flex items-center justify-center gap-2 rounded-lg">
                             Falar com vendedor
                         </Button>
                     </a>
@@ -137,10 +125,10 @@ export default function VehiclePage() {
             </div>
         </div>
         {/* Opcionais */}
-        <div className="max-w-7xl mx-auto bg-white shadow-xl rounded-3xl p-8 mt-10" id="vehicle">
+        {/* <div className="max-w-7xl mx-auto bg-white shadow-xl rounded-3xl p-8 mt-10" id="vehicle">
             <Optionals Vehicle={vehicle} />
 
-        </div>
+        </div> */}
     </div>
 
 
