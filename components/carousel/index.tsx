@@ -1,64 +1,31 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
+import Image from "next/image"; // ou "react-img" dependendo do seu projeto
+import VehicleImage from "@/types/VehicleImage";
 
 interface CarouselProps {
 	images: { src: string }[];
 }
 
 export default function Carousel({ images }: CarouselProps) {
-	const [currentIndex, setCurrentIndex] = useState<number>(0);
-	const carouselRef = useRef<HTMLDivElement>(null);
-	const touchStartX = useRef<number | null>(null);
+	return <Swiper
+		modules={[Navigation, Pagination, Scrollbar, A11y]}
+		direction='horizontal'
+		pagination={{ clickable: true }}
+	>
+		{images.map((image, index) => (
+			<SwiperSlide key={index} className='cursor-pointer' >
+				<Image
+					src={image.src}
+					alt={`imagem-${index}`}
+					width={1000}
+					height={1000}
+					className='lg:max-h-[60vh] h-auto w-screen object-cover' />
+			</SwiperSlide>
+		))}
+	</Swiper>
 
-	useEffect(() => {
-		const slideInterval = setInterval(() => {
-			nextSlide();
-		}, 5000);
-
-		return () => clearInterval(slideInterval);
-	}, [currentIndex]);
-
-	const nextSlide = () => {
-		setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-	};
-
-	const prevSlide = () => {
-		setCurrentIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
-	};
-
-	const handleTouchStart = (e: React.TouchEvent) => {
-		touchStartX.current = e.touches[0].clientX;
-	};
-
-	const handleTouchMove = (e: React.TouchEvent) => {
-		if (!touchStartX.current) return;
-		const touchEndX = e.touches[0].clientX;
-		const diff = touchStartX.current - touchEndX;
-
-		if (diff > 50) {
-			nextSlide();
-			touchStartX.current = null;
-		} else if (diff < -50) {
-			prevSlide();
-			touchStartX.current = null;
-		}
-	};
-
-	return (
-		<div ref={carouselRef} className="relative w-screen h-[40vh] sm:h-[60vh] overflow-hidden" onTouchStart={handleTouchStart} onTouchMove={handleTouchMove}>
-			<div className="flex transition-transform duration-500" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
-				{images.map((image, index) => (
-					<div key={index} className="w-full h-full flex-shrink-0">
-						<img src={image.src} alt={`Slide ${index + 1}`} className="w-full h-full object-cover" />
-					</div>
-				))}
-			</div>
-			<div className="absolute bottom-5 left-1/2 transform -translate-x-1/2 flex space-x-2">
-				{images.map((_, index) => (
-					<div key={index} onClick={() => setCurrentIndex(index)} className={`w-3 h-3 select-none rounded-full ${index === currentIndex ? 'bg-white' : 'bg-gray-400'}`}></div>
-				))}
-			</div>
-		</div>
-	);
 };

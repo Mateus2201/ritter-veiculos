@@ -1,6 +1,6 @@
 'use client'
 
-import publicApi from '@/lib/publicApi';
+import publicApi from '@/lib/api';
 import Vehicle from '@/types/Vehicle';
 import VehicleOptional from '@/types/VehicleOptional';
 import { Ban, CheckCheck } from 'lucide-react'

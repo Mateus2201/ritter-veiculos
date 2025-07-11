@@ -14,15 +14,13 @@ export default function Footer({ logo }: FooterProps) {
                         <p className='mt-2'>atendimento@ritterveiculos.com.br</p>
                     </div>
                     <div className='not-md:mt-5 not-md:border-t not-md:border-white not-md:pt-5'>
-                        <h2>Contatos</h2>
+                        <h2 className="text-xl mb-3">Contatos</h2>
                         <p>51 99952-2616</p>
-
                         <p>51 99980-1614</p>
-                        <p className='relative bottom-1 '>&copy; {new Date().getFullYear()} Ritter Veículos. Todos os direitos reservados.</p>
-
+                        {/* <p className='relative bottom-1 '>&copy; {new Date().getFullYear()} Ritter Veículos. Todos os direitos reservados.</p> */}
                     </div>
                     <div className='not-md:mt-5 not-md:border-t not-md:border-white not-md:pt-5'>
-                        <h2>Localização e Horários</h2>
+                        <h2 className="text-xl mb-3">Localização e Horários</h2>
                         <p>Av. Flores da Cunha, nº 1140, Parada 50</p>
                         <p>Canoas - RS</p>
                         <p>Horários de Atendimento</p>

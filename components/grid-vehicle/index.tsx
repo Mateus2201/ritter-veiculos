@@ -1,14 +1,12 @@
 'use client';
 
 import { useState } from 'react';
-import Card from '../card';
 import Vehicle from '@/types/Vehicle';
-import { cn } from '@/lib/utils';
-import PropagateLoader from 'react-spinners/PropagateLoader';
 import SwiperImages from "@/components/swiper-images";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+
 import {
     ClipboardList,
     Calendar1,
@@ -26,11 +24,11 @@ interface GridProps {
 export default function Grid({ Vehicles }: GridProps) {
     const [loader, setLoader] = useState<number | null>(null);
 
-    return <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 h-[490px]">
+    return <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 w-full h-[525px]">
         {Vehicles.map((vehicle) => (
             <div key={vehicle.idVehicle} className="bg-white rounded-xl overflow-hidden border border-gray-200 shadow-lg hover:shadow-2xl transition-transform hover:-translate-y-1 flex flex-col">
                 <div className="h-60 w-full relative">
-                    <SwiperImages id={vehicle.idVehicle} />
+                    <SwiperImages idVehicle={vehicle.idVehicle} />
                     {!!vehicle.sold && (<Badge className="absolute top-4 left-4 bg-red-600 z-1 text-white">Vendido</Badge>)}
                     {!!vehicle.featured && !vehicle.sold && (<Badge className="absolute top-4 left-4 bg-green-600 z-1 text-white">Destaque</Badge>)}
                 </div>

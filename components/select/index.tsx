@@ -36,7 +36,7 @@ export default function SelectComponent({
             onValueChange={onChange}
             value={value ? String(value) : ''}
         >
-            <SelectTrigger className={cn('w-full border border-background bg-white outline-none h-10 px-3 rounded-sm', classNameSelect)} id={id}>
+            <SelectTrigger className={cn('w-full text-lg bg-white border border-background no-underline outline-0 h-10 p-5 rounded-sm', classNameSelect)} id={id}>
                 <SelectValue placeholder={label} />
             </SelectTrigger>
             <SelectContent className="z-10 bg-white max-h-60 overflow-auto">

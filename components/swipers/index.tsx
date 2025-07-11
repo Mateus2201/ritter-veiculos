@@ -7,15 +7,17 @@ import hilux from "@/src/img/carros/hilux.jpeg";
 import Image from 'next/image';
 import { Swiper, SwiperClass, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
+import { useIsMobile } from '@/hook/use-mobile';
+import { useVehicleImage } from '@/hook/use-vehicle-images';
+import { useEffect } from 'react';
+import VehicleImage from '@/types/VehicleImage';
+
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
-import { useIsMobile } from '@/hook/use-mobile';
 
-const images = [argo, argo, hilux, argo, chevette, chevette, chevette, hilux, chevette, hilux, hilux];
-
-
+// const images = [argo, argo, hilux, argo, chevette, chevette, chevette, hilux, chevette, hilux, hilux];
 
 type SwipersProps = {
     idVehicle?: number;
@@ -25,11 +27,21 @@ export default function Swipers({ idVehicle }: SwipersProps) {
     const isMobile = useIsMobile();
     const [mainSwiper, setMainSwiper] = useState<SwiperClass | null>(null);
     const [selectedIndex, setSelectedIndex] = useState(0);
+    const [images, setImages] = useState<VehicleImage[]>([]); // Assumindo tipo
 
+    const { getAllVehicleImage } = useVehicleImage();
 
+    useEffect(() => {
+        getAllVehicleImage(idVehicle)
+            .then((data) => {
+                if (data && Array.isArray(data)) setImages(data);
+            })
+            .catch((error) => {
+                console.error("Erro ao buscar imagens do veículo:", error);
+            });
+    }, []);
 
-    return <div className="lg:flex lg:flex-row-reverse gap-4 w-full h-full max-w-5xl mx-auto">
-        {/* Swiper principal */}
+    return <div className="lg:flex lg:flex-row-reverse gap-4 w-full h-full max-w-4xl mx-auto">
         <div className="lg:w-4/5 w-full h-full">
             <Swiper
                 modules={[Navigation, Pagination, A11y]}
@@ -43,7 +55,15 @@ export default function Swipers({ idVehicle }: SwipersProps) {
                 {images.map((image, index) => (
                     <div className='relative w-full h-[525px]'>
                         <SwiperSlide key={index} className="cursor-pointer">
-                            <Image src={image} alt={'imagem - ${index'} className='lg:h-[525px] object-center' />
+                            <Image
+                                src={image.secureURL}
+                                alt={image.name || `imagem-${index}`}
+                                // fill
+                                width={400}
+                                height={300}
+                                className="object-cover rounded h-full w-full"
+                                priority={index === 0}
+                            />
                         </SwiperSlide>
 
                     </div>
@@ -55,7 +75,7 @@ export default function Swipers({ idVehicle }: SwipersProps) {
                 <Swiper
                     modules={[Navigation, Pagination, A11y]}
                     direction="vertical"
-                    spaceBetween={50}
+                    spaceBetween={2}
                     slidesPerView={4}
                     className="max-h-130 h-1/1 rounded-lg "
                 >
@@ -68,7 +88,13 @@ export default function Swipers({ idVehicle }: SwipersProps) {
                                 if (mainSwiper) mainSwiper.slideTo(index);
                             }}
                         >
-                            <Image src={image} alt={'imagem - ${index}'} className='w-full rounded-lg' />
+                            <Image
+                                src={image.secureURL}
+                                alt={`miniatura-${index}`}
+                                width={400}
+                                height={300}
+                                className="object-cover rounded max-h-full max-w-full"
+                                priority={false} />
                         </SwiperSlide>
                     ))}
                 </Swiper>
@@ -91,10 +117,12 @@ export default function Swipers({ idVehicle }: SwipersProps) {
                             }}
                         >
                             <Image
-                                src={image}
+                                src={image.secureURL}
                                 alt={`miniatura-${index}`}
-                                fill
-                                className="object-cover rounded-md"
+                                width={400}
+                                height={300}
+                                className="object-cover rounded max-h-full max-w-full"
+                                priority={false}
                             />
                         </SwiperSlide>
                     ))}

@@ -2,7 +2,7 @@
 
 import React, { useEffect, useMemo, useState } from 'react';
 import Grid from '@/components/grid-vehicle';
-import publicApi from '@/lib/publicApi';
+import publicApi from '@/lib/api';
 import ReactPaginate from 'react-paginate';
 import Filter from '@/components/filter';
 import { scroller } from "react-scroll";
@@ -50,7 +50,7 @@ export default function SearchPage() {
 
     return <div className="min-h-screen bg-gray-300">
         <div className="container mx-auto flex flex-col xl:flex-row gap-4 p-4">
-            <Filter titleFilters="Busca" className="w-full p-5 rounded-xl bg-white rounded-xl overflow-hidden border border-gray-200 shadow-lg min-h-[490px]" />
+            <Filter titleFilters="Busca" className="w-full p-5 xl:w-1/4 bg-white rounded-xl overflow-hidden border border-gray-200 shadow-lg min-h-[490px]" />
             <div className="w-full xl:w-3/4">
                 {loading
                     ? <Loading />
