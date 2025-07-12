@@ -18,7 +18,7 @@ export default function CardCar({ Vehicle, className }: CardCarProps) {
 
     return <div key={idVehicle} className={cn('xl:h-full not-xl:mt-5 rounded-lg text-offWhite', className)}>
         <div className='relative top-0 left-0 w-full md:h-60 h-70'>
-            <SwiperImages id={idVehicle} />
+            <SwiperImages idVehicle={idVehicle} />
         </div>
         <div className='mt-5 px-3'>
             <div className='flex justify-start items-baseline gap-1 m-5'>
