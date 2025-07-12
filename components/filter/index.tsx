@@ -86,8 +86,8 @@ export default function Filter({ className, classNameGap, titleFilters, classTit
         return;
     };
 
-    return <div className={cn('flex items-center justify-center p-10 bg-primary', className)}>
-        <div className='container flex flex-col items-center justify-center '>
+    return <div className={cn('flex items-start justify-center p-10 bg-primary', className)}>
+        <div className='container flex flex-col items-start justify-center '>
             <div className={cn('h-full w-full', classNameGap)}>
                 <h1 className={cn('text-3xl font-bold text-background', classTitle)}>{titleFilters}</h1>
                 <Input

@@ -49,7 +49,7 @@ export default function ArmoredPage() {
             <div className="w-full xl:w-3/4">
                 {loading
                     ? <Loading />
-                    : <Grid Vehicles={items.filter(m => m.armored)} />
+                    : <Grid Vehicles={items.filter(m => m.armored && !m.sold)} />
                 }
                 {typeof countCarsTotal === "number"
                     && countCarsTotal > 9

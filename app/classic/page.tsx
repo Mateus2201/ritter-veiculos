@@ -49,7 +49,7 @@ export default function ClassisPage() {
             <div className="w-full xl:w-3/4">
                 {loading
                     ? <Loading />
-                    : <Grid Vehicles={items.filter(m => m.classic)} />
+                    : <Grid Vehicles={items.filter(m => m.classic && !m.sold)} />
                 }
                 {typeof countCarsTotal === "number"
                     && countCarsTotal > 9

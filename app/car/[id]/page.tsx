@@ -51,16 +51,16 @@ export default function VehiclePage() {
     if (!vehicle) return null;
 
     return <div className="bg-gray-100 min-h-screen py-10 px-4">
-        <div className="w-full xl:w-5/7 mx-auto bg-white shadow-xl rounded-3xl p-8 flex flex-col lg:flex-row gap-10">
+        <div className="w-full xl:w-6/7 mx-auto bg-white shadow-xl rounded-3xl p-8 flex flex-col lg:flex-row gap-10">
             <Swipers idVehicle={vehicle.idVehicle} />
             <div className="flex-1 flex flex-col justify-between">
                 <div>
                     {/* Título + Preço */}
-                    <h1 className="text-4xl font-bold text-gray-800 mb-2">
+                    <h1 className="text-5xl font-bold text-gray-800 mb-2">
                         {vehicle?.model || 'Modelo não informado'} - {vehicle?.engine || 'Motor não informado'}
                     </h1>
                     {vehicle?.priceDisplay && (
-                        <p className="text-2xl text-indigo-600 font-bold">
+                        <p className="text-4xl text-red-600 font-bold truncate">
                             R$ {vehicle?.price.toLocaleString('pt-BR')}
                         </p>
                     )}
@@ -73,7 +73,7 @@ export default function VehiclePage() {
                     )}
 
                     {/* Grade de dados */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-6 text-sm text-gray-700">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-6 text-lg text-gray-700">
                         <p className="flex items-center gap-2">
                             <Factory className="w-4 h-4" /> {vehicle?.Manufacturer?.name || 'Fabricante'}
                         </p>

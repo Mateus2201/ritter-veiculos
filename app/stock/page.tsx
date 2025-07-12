@@ -50,7 +50,7 @@ export default function StockPage() {
             <div className="w-full xl:w-3/4">
                 {loading
                     ? <Loading />
-                    : <Grid Vehicles={items} />
+                    : <Grid Vehicles={items.filter(m => !m.sold)} />
                 }
                 {typeof countCarsTotal === "number"
                     && countCarsTotal > 9
