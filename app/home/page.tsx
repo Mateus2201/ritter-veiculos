@@ -1,6 +1,7 @@
 import Carousel from '@/components/carousel'
 import Filter from '@/components/filter'
 import GridHighlights from '@/components/grid-highlights';
+import PreviewInsta from '@/components/preview-insta';
 import foto1 from '@/src/img/banner-2.png';
 import foto2 from '@/src/img/banner.png';
 
@@ -13,5 +14,6 @@ export default function HomePage() {
             classNameGap='md:grid md:grid-cols-6 md:gap-5 w-full'
         />
         <GridHighlights />
+        <PreviewInsta />
     </div>
 }

@@ -7,6 +7,7 @@ import { useParams } from 'next/navigation';
 import { scroller } from 'react-scroll';
 import Swipers from '@/components/swipers';
 import Button from '@/components/button';
+import WhatsAppIcon from '@/src/svg/whatsapp.svg';
 
 import {
     Armchair,
@@ -18,6 +19,9 @@ import {
     PaintbrushVertical,
     CarFront,
 } from 'lucide-react';
+import Link from 'next/link';
+import Image from 'next/image';
+import Optionals from '@/components/optionals';
 
 
 export default function VehiclePage() {
@@ -88,20 +92,16 @@ export default function VehiclePage() {
                         <p className="flex items-center gap-2">
                             <PaintbrushVertical className="w-4 h-4" /> {vehicle?.Color?.description || '-'}
                         </p>
-                        <p className="flex items-center gap-2">
+                        {/* <p className="flex items-center gap-2">
                             <CarFront className="w-4 h-4" /> {vehicle?.VehicleType?.description || '-'}
-                        </p>
+                        </p> */}
                     </div>
-
-                    {/* Observações */}
                     {vehicle?.notes && (
-                        <div className="bg-green-50 border border-green-200 rounded-md p-4 mt-6">
+                        <div className="bg-green-50 border border-green-200 rounded-md p-4 mt-15">
                             <h4 className="text-green-800 font-semibold mb-1">Observação:</h4>
                             <p className="text-sm text-green-900">{vehicle.notes}</p>
                         </div>
                     )}
-
-                    {/* Proposta */}
                     {vehicle?.allowsProposal && (
                         <div className="text-blue-600 font-medium flex items-center gap-2 mt-4 text-sm">
                             <HandHelping className="w-4 h-4" />
@@ -109,26 +109,24 @@ export default function VehiclePage() {
                         </div>
                     )}
                 </div>
-
                 {/* Botão */}
                 <div className="mt-8">
-                    <a
-                        href={`https://api.whatsapp.com/send?phone=5551984454592&text=Olá, gostaria de saber mais sobre o ${vehicle?.model} - ${vehicle?.engine}`}
+                    <Link
+                        href="https://api.whatsapp.com/send?phone=5551999522616"
                         target="_blank"
                         rel="noopener noreferrer"
                     >
-                        <Button className="hover:bg-secondary hover:text-offWhite font-bold bg-red-700  text-white w-full flex items-center justify-center gap-2 rounded-lg">
+                        <Button className=" font-bold bg-gray-300 border  text-gray-600 w-full flex items-center justify-center gap-2 rounded-lg">
+                            <Image src={WhatsAppIcon} alt="WhatsApp" className="w-5 h-5" />
                             Falar com vendedor
                         </Button>
-                    </a>
+                    </Link>
                 </div>
             </div>
         </div>
-        {/* Opcionais */}
-        {/* <div className="max-w-7xl mx-auto bg-white shadow-xl rounded-3xl p-8 mt-10" id="vehicle">
+        <div className="max-w-7xl mx-auto bg-white shadow-xl rounded-3xl p-8 mt-10" id="vehicle">
             <Optionals Vehicle={vehicle} />
-
-        </div> */}
+        </div>
     </div>
 
 

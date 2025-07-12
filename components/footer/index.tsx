@@ -1,39 +1,65 @@
+import WhatsAppIcon from '@/src/svg/whatsapp.svg';
+import { MapPinned } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
 
 interface FooterProps {
     logo: { src: string };
 }
 
 export default function Footer({ logo }: FooterProps) {
-    return (
-        <footer className={'static bottom-0 border-t bg-primary border-t-black text-offWhite flex items-center justify-center'}>
-            <div className="container bg-primary ">
-                <div className={'max-w-full md:grid md: grid-cols-3 gap-20 p-10 font-bold'}>
-                    <div className='not-md:mt-5 not-md:border-t not-md:border-white not-md:pt-5'>
-                        <img src={logo.src} alt="logo" className={'w-60'} />
-                        <p className='mt-2'>administrativo@ritterveiculos.com.br</p>
-                        <p className='mt-2'>atendimento@ritterveiculos.com.br</p>
-                    </div>
-                    <div className='not-md:mt-5 not-md:border-t not-md:border-white not-md:pt-5'>
-                        <h2 className="text-xl mb-3">Contatos</h2>
-                        <p>51 99952-2616</p>
-                        <p>51 99980-1614</p>
-                        {/* <p className='relative bottom-1 '>&copy; {new Date().getFullYear()} Ritter Veículos. Todos os direitos reservados.</p> */}
-                    </div>
-                    <div className='not-md:mt-5 not-md:border-t not-md:border-white not-md:pt-5'>
-                        <h2 className="text-xl mb-3">Localização e Horários</h2>
-                        <p>Av. Flores da Cunha, nº 1140, Parada 50</p>
-                        <p>Canoas - RS</p>
-                        <p>Horários de Atendimento</p>
-                        <p>Segunda à Sexta</p>
-                        <p>Das 8:30 às 18:30</p>
-                        <p>Sábados</p>
-                        <p>Das 8:30 às 16:30</p>
-
+    return <footer className="bg-primary text-offWhite border-t border-black min-h-[40vh]">
+        <div className="container mx-auto px-6 py-10">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <div className="flex flex-col items-start">
+                    <img src={logo.src} alt="logo" className="w-48 mb-4" />
+                    <p className="text-sm text-offWhite/80">
+                        © {new Date().getFullYear()} Ritter Veículos. Todos os direitos reservados.
+                    </p>
+                </div>
+                <div>
+                    <h2 className="text-xl font-semibold mb-4">Contatos</h2>
+                    <div className="space-y-2 text-sm">
+                        <Link
+                            href="https://api.whatsapp.com/send?phone=5551999522616"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-2 hover:underline"
+                        >
+                            <Image src={WhatsAppIcon} alt="WhatsApp" className="w-5 h-5" />
+                            51 99952-2616
+                        </Link>
+                        <Link
+                            href="https://api.whatsapp.com/send?phone=5551999801614"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-2 hover:underline"
+                        >
+                            <Image src={WhatsAppIcon} alt="WhatsApp" className="w-5 h-5" />
+                            51 99980-1614
+                        </Link>
+                        <p className="flex items-center gap-2">administrativo@ritterveiculos.com.br</p>
+                        <p className="flex items-center gap-2">atendimento@ritterveiculos.com.br</p>
                     </div>
                 </div>
-
+                <div>
+                    <h2 className="text-xl font-semibold mb-4">Localização e Horários</h2>
+                    <div className="space-y-2 text-sm">
+                        <Link
+                            href="https://maps.app.goo.gl/rr9GCB55vqECvaUL6"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-2 hover:underline"
+                        >
+                            <MapPinned className="w-5 h-5" />
+                            Av. Flores da Cunha, nº 1140, Parada 50 - Canoas - RS
+                        </Link>
+                        <p>Horários de Atendimento</p>
+                        <p>Segunda à Sexta: 8:30 às 18:30</p>
+                        <p>Sábados: 8:30 às 16:30</p>
+                    </div>
+                </div>
             </div>
-
-        </footer>
-    );
-};
+        </div>
+    </footer>
+}

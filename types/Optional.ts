@@ -2,7 +2,7 @@ import OptionalCategory from "./OptionalCategory";
 
 type Optional = {
   idOptional: number;
-  name: string;
+  description: string;
   idOptionalType: number;
   idVehicleType: number;
   createdAt: Date;

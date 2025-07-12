@@ -1,10 +1,8 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
-import Image from "next/image"; // ou "react-img" dependendo do seu projeto
-import VehicleImage from "@/types/VehicleImage";
+import Image from "next/image"; 
 
 interface CarouselProps {
 	images: { src: string }[];

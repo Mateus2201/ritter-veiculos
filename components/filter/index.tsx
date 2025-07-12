@@ -133,7 +133,7 @@ export default function Filter({ className, classNameGap, titleFilters, classTit
                     placeholder='Preço Máximo (R$)' />
                 <Button
                     onClick={changeValueForLink}
-                    className='hover:bg-secondary hover:text-offWhite font-bold bg-red-700  text-white w-full flex items-center justify-center gap-2 rounded-lg'>
+                    className='hover:bg-secondary hover:text-offWhite font-bold bg-red-700 text-white w-full flex items-center justify-center gap-2 rounded-lg'>
                     {loader
                         ? <Loading />
                         : <p className='font-bold text-md '>{'BUSCAR'}</p>

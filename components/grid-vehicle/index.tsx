@@ -24,9 +24,9 @@ interface GridProps {
 export default function Grid({ Vehicles }: GridProps) {
     const [loader, setLoader] = useState<number | null>(null);
 
-    return <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 w-full h-[525px]">
+    return <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 w-full ">
         {Vehicles.map((vehicle) => (
-            <div key={vehicle.idVehicle} className="bg-white rounded-xl overflow-hidden border border-gray-200 shadow-lg hover:shadow-2xl transition-transform hover:-translate-y-1 flex flex-col">
+            <div key={vehicle.idVehicle} className="bg-white  rounded-xl overflow-hidden border border-gray-200 shadow-lg hover:shadow-2xl transition-transform hover:-translate-y-1 flex flex-col">
                 <div className="h-60 w-full relative">
                     <SwiperImages idVehicle={vehicle.idVehicle} />
                     {!!vehicle.sold && (<Badge className="absolute top-4 left-4 bg-red-600 z-1 text-white">Vendido</Badge>)}
