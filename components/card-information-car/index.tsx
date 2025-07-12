@@ -25,7 +25,7 @@ export default function CardInformationCar({ id }: CardInformationCarProps) {
   return <div className="container mx-auto p-4 ">
     {useVehicle && <div className='xl:w-4/10 lg:p-5 pt-5'>
       <div className='xl:flex mt-4 bg-white rounded-xl p-3'>
-        <SwiperImages id={useVehicle.idVehicle} />
+        <SwiperImages idVehicle={useVehicle.idVehicle} />
         <InformationCar Vehicle={useVehicle} />
       </div>
       <Optionals Vehicle={useVehicle} />
