@@ -1,7 +1,6 @@
-import WhatsAppIcon from '@/src/svg/whatsapp.svg';
 import { MapPinned } from 'lucide-react';
-import Image from 'next/image';
 import Link from 'next/link';
+import WhatsappComponent from '../svg/whasapp';
 
 interface FooterProps {
     logo: { src: string };
@@ -26,7 +25,8 @@ export default function Footer({ logo }: FooterProps) {
                             rel="noopener noreferrer"
                             className="flex items-center gap-2 hover:underline"
                         >
-                            {/* <Image src={WhatsAppIcon} alt="WhatsApp" className="w-5 h-5" /> */}
+                            <WhatsappComponent className='h-4 w-4' />
+
                             51 99952-2616
                         </Link>
                         <Link
@@ -35,7 +35,8 @@ export default function Footer({ logo }: FooterProps) {
                             rel="noopener noreferrer"
                             className="flex items-center gap-2 hover:underline"
                         >
-                            {/* <Image src={WhatsAppIcon} alt="WhatsApp" className="w-5 h-5" /> */}
+                            <WhatsappComponent className='h-4 w-4' />
+
                             51 99980-1614
                         </Link>
                         <p className="flex items-center gap-2">administrativo@ritterveiculos.com.br</p>

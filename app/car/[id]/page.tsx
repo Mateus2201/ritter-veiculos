@@ -21,6 +21,7 @@ import {
     HandHelping,
     PaintbrushVertical,
 } from 'lucide-react';
+import WhatsappComponent from '@/components/svg/whasapp';
 
 export default function VehiclePage() {
     const params = useParams();
@@ -109,7 +110,7 @@ export default function VehiclePage() {
                         rel="noopener noreferrer"
                     >
                         <Button className=" font-bold bg-gray-300 border  text-gray-600 w-full flex items-center justify-center gap-2 rounded-lg">
-                            <Image src={WhatsAppIcon} alt="WhatsApp" className="w-5 h-5" />
+                            <WhatsappComponent className='h-5 w-5'/>
                             Falar com vendedor
                         </Button>
                     </Link>
@@ -120,6 +121,8 @@ export default function VehiclePage() {
             <Optionals Vehicle={vehicle} />
         </div>
     </div>
+
+   
 
 
 }

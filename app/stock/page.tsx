@@ -9,7 +9,7 @@ import Vehicle from "@/types/Vehicle";
 import Loading from "@/components/loading";
 import Grid from "@/components/grid-vehicle";
 
-const itensForPages = 6;
+const itensForPages = 9;
 
 export default function StockPage() {
     const [pageIndex, setPageIndex] = useState<number>(0);
