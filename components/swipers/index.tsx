@@ -71,13 +71,13 @@ export default function Swipers({ idVehicle }: SwipersProps) {
             </Swiper>
         </div>
         {!isMobile
-            ? <div className="w-2/10 m-1 not-lg:hidden">
+            ? <div className="w-2/10 not-lg:hidden">
                 <Swiper
                     modules={[Navigation, Pagination, A11y]}
                     direction="vertical"
                     spaceBetween={2}
                     slidesPerView={4}
-                    className="max-h-130 h-1/1 rounded-lg "
+                    className="max-h-[540px] h-1/1 rounded-lg "
                 >
                     {images.map((image, index) => (
                         <SwiperSlide
@@ -99,7 +99,7 @@ export default function Swipers({ idVehicle }: SwipersProps) {
                     ))}
                 </Swiper>
             </div>
-            : <div className="lg:hidden w-full mt-3 px-1">
+            : <div className="lg:hidden w-full mt-3 ">
                 <Swiper
                     modules={[Scrollbar, A11y]}
                     direction="horizontal"
