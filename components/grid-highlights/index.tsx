@@ -18,7 +18,7 @@ export default function GridHighlights() {
 
     return <div className={'w-full flex items-center justify-center p-10 bg-gray-300 '}>
         <div className='container gap-5'>
-            <Grid classNameCard='bg-white text-primary' Vehicles={Vehicles.filter(m => m.featured)} />
+            <Grid classNameCard='bg-white text-primary' Vehicles={Vehicles.filter(m => m.featured && !m.sold)} />
         </div>
     </div>
 };

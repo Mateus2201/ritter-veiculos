@@ -56,7 +56,7 @@ export default function Footer({ logo }: FooterProps) {
                         </Link>
                         <p>Horários de Atendimento</p>
                         <p>Segunda à Sexta: 8:30 às 18:30</p>
-                        <p>Sábados: 8:30 às 16:30</p>
+                        <p>Sábados: 9:00 às 16:00</p>
                     </div>
                 </div>
             </div>

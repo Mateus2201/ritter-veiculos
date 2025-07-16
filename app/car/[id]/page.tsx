@@ -59,11 +59,16 @@ export default function VehiclePage() {
                     <h1 className="text-5xl font-bold text-gray-800 mb-2">
                         {vehicle?.model || 'Modelo não informado'} - {vehicle?.engine || 'Motor não informado'}
                     </h1>
-                    {vehicle?.priceDisplay && (
-                        <p className="text-4xl text-red-600 font-bold truncate">
-                            R$ {vehicle?.price.toLocaleString('pt-BR')}
+                    {vehicle?.priceDisplay && vehicle?.price ? (
+                        <p className="text-5xl text-red-600 font-bold truncate">
+                            {Number(vehicle?.price).toLocaleString('pt-BR', {
+                                style: 'currency',
+                                currency: 'BRL'
+                            })}
                         </p>
-                    )}
+                    ) : <p className="text-5xl text-red-600 font-bold truncate">
+                            Preço indisponível
+                        </p>}
 
                     {/* Parcelamento */}
                     {vehicle?.installmentValue > 0 && (
@@ -96,18 +101,16 @@ export default function VehiclePage() {
                             <CarFront className="w-4 h-4" /> {vehicle?.VehicleType?.description || '-'}
                         </p> */}
                     </div>
-                    {vehicle?.notes && (
-                        <div className="bg-green-50 border border-green-200 rounded-md p-4 mt-15">
-                            <h4 className="text-green-800 font-semibold mb-1">Observação:</h4>
-                            <p className="text-sm text-green-900">{vehicle.notes}</p>
-                        </div>
-                    )}
-                    {vehicle?.allowsProposal && (
-                        <div className="text-blue-600 font-medium flex items-center gap-2 mt-4 text-sm">
-                            <HandHelping className="w-4 h-4" />
-                            Aceitamos proposta. Fale conosco.
-                        </div>
-                    )}
+                    {vehicle?.notes ? <div className="bg-green-50 border border-green-200 rounded-md p-4 mt-15">
+                        <h4 className="text-green-800 font-semibold mb-1">Observação:</h4>
+                        <p className="text-sm text-green-900">{vehicle.notes}</p>
+                    </div>
+                        : null}
+                    {vehicle?.allowsProposal ? <div className="text-blue-600 font-medium flex items-center gap-2 mt-4 text-sm">
+                        <HandHelping className="w-4 h-4" />
+                        Aceitamos proposta. Fale conosco.
+                    </div>
+                        : null}
                 </div>
                 {/* Botão */}
                 <div className="mt-8">
@@ -124,7 +127,7 @@ export default function VehiclePage() {
                 </div>
             </div>
         </div>
-        <div className="max-w-7xl mx-auto bg-white shadow-xl rounded-3xl p-8 mt-10" id="vehicle">
+        <div className="xl:w-6/7 mx-auto bg-white shadow-xl rounded-3xl" id="vehicle">
             <Optionals Vehicle={vehicle} />
         </div>
     </div>
