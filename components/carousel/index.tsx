@@ -2,13 +2,23 @@
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
-import Image from "next/image"; 
+import Image from "next/image";
+import { useEffect } from "react";
+import publicApi from "@/lib/api";
 
 interface CarouselProps {
 	images: { src: string }[];
 }
 
 export default function Carousel({ images }: CarouselProps) {
+	useEffect(() => {
+		publicApi.get<any>(`/site-images?folder=registro-site`)
+			.then((data) => console.log(data))
+
+		// fetch('https://api.ritterveiculos.com.br/site-images?folder=registro-site')
+		//     .then((res) => res.json())
+	}, [])
+
 	return <Swiper
 		modules={[Navigation, Pagination, Scrollbar, A11y]}
 		direction='horizontal'

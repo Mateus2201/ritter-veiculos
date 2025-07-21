@@ -110,7 +110,7 @@ export default function VehiclePage() {
                         rel="noopener noreferrer"
                     >
                         <Button className=" font-bold bg-gray-300 border  text-gray-600 w-full flex items-center justify-center gap-2 rounded-lg">
-                            <WhatsappComponent className='h-5 w-5'/>
+                            <WhatsappComponent className='h-5 w-5' />
                             Falar com vendedor
                         </Button>
                     </Link>
@@ -122,7 +122,7 @@ export default function VehiclePage() {
         </div>
     </div>
 
-   
+
 
 
 }
