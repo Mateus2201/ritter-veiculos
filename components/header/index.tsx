@@ -26,7 +26,7 @@ export default function Header({ logo }: HeaderProps) {
             <header className="flex justify-center bg-primary h-70 lg:h-60 w-full">
                 <div className="container relative flex justify-center items-center ">
                     <div className="absolute cursor-pointer top-1/3 lg:left-1/10">
-                    <Link href={'/home'}>
+                    <Link href={'/'}>
                         <Image src={logo} alt="hero" className='w-60 lg:w-80'  />
                     </Link>
                     </div>

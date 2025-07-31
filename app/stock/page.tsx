@@ -55,7 +55,7 @@ export default function StockPage() {
 
     return <div className="min-h-screen bg-gray-300">
         <div className="container mx-auto flex flex-col xl:flex-row gap-4 p-4">
-            <Filter titleFilters="Estoque" className="w-full xl:w-1/4 p-5 bg-white rounded-xl overflow-hidden border border-gray-200 shadow-lg min-h-[520px]" />
+            <Filter titleFilters="Estoque" className="filters w-full xl:w-1/4 p-5 bg-white rounded-xl overflow-hidden border border-gray-200 shadow-lg min-h-[520px]" />
             <div className="w-full xl:w-3/4">
                 {loading
                     ? <Loading />
