@@ -16,28 +16,36 @@ export default function SearchPage() {
     const params = useParams();
     const slug = params.params as string[];
 
-    const [offset, setPageConfig] = useState<number>(0);
-    const [items, setItems] = useState<Vehicle[]>([]);
+    const [pageIndex, setPageIndex] = useState<number>(0);
     const [countCarsTotal, setCountCarsTotal] = useState<number>();
     const [loading, setLoading] = useState<boolean>(true);
-    const [loader, setLoader] = useState<number | null>(null);
+    const [allCars, setAllCars] = useState<Vehicle[]>([]);
+
+    const currentItems = useMemo(() => {
+        const start = pageIndex * itensForPages;
+        return allCars.slice(start, start + itensForPages);
+    }, [allCars, pageIndex]);
+
+    const totalPages = useMemo(() => {
+        return Math.ceil(allCars.length / itensForPages);
+    }, [allCars]);
 
     useEffect(() => {
+        setLoading(true);
         publicApi
-            .get<{ cars: Vehicle[]; count?: number }>(`cars-search/9/${offset}/${slug.join('/')}`)
+            .get<{ cars: Vehicle[]; count?: number }>(`cars-search/0/0/${slug.join('/')}`)
             .then(({ data }) => {
-                setItems(data.cars);
-                setCountCarsTotal(data.count ?? 0);
+                console.log(data);
+                const filtered = data.cars.filter(v => !v.sold);
+
+                setAllCars(filtered);
+                setCountCarsTotal(filtered.length);
                 setLoading(false);
             })
             .catch(() => {
-                console.log("Acesso negado! Redirecionando...");
+                console.log("Erro ao carregar dados.");
             });
-    }, [offset]);
-
-    const totalPages = useMemo(() => {
-        return countCarsTotal ? Math.ceil(countCarsTotal / itensForPages) : 0;
-    }, [countCarsTotal]);
+    }, []);
 
     const changePage = (event: { selected: number }) => {
         scroller.scrollTo("filters", {
@@ -45,7 +53,7 @@ export default function SearchPage() {
             smooth: true,
             offset: -10,
         });
-        setPageConfig(event.selected);
+        setPageIndex(event.selected);
     };
 
     return <div className="min-h-screen bg-gray-300">
@@ -54,28 +62,28 @@ export default function SearchPage() {
             <div className="w-full xl:w-3/4">
                 {loading
                     ? <Loading />
-                    : <Grid Vehicles={items} />
+                    : <Grid Vehicles={currentItems.filter(v => !v.sold)} />
                 }
-                {typeof countCarsTotal === "number"
-                    && countCarsTotal > 9
-                    && <ReactPaginate
-                        previousLabel={"Anterior"}
-                        nextLabel={"Próximo"}
-                        breakLabel={"..."}
-                        pageCount={totalPages}
-                        marginPagesDisplayed={2}
-                        pageRangeDisplayed={3}
-                        onPageChange={changePage}
-                        containerClassName="flex items-center justify-center gap-2 w-full h-15 p-0 mt-5"
-                        activeClassName="text-xl bg-secondary text-offWhite"
-                        previousClassName="select-none items-center hover:bg-secondary hover:text-offWhite border-white rounded-md p-2"
-                        nextClassName="select-none items-center hover:bg-secondary hover:text-offWhite border-white rounded-md p-2"
-                        pageClassName="select-none items-center not-md:hidden hover:bg-secondary hover:text-offWhite border-white rounded-md p-2"
-                        breakClassName="select-none items-center not-md:hidden hover:bg-secondary hover:text-offWhite border-white rounded-md p-2"
-                        disabledClassName="select-none items-center not-md:hidden hover:bg-secondary hover:text-offWhite border-white rounded-md p-2"
-                    />}
             </div>
         </div>
+        {typeof countCarsTotal === "number"
+            && countCarsTotal > itensForPages
+            ? <ReactPaginate
+                previousLabel={"Anterior"}
+                nextLabel={"Próximo"}
+                breakLabel={"..."}
+                pageCount={totalPages}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={3}
+                onPageChange={changePage}
+                containerClassName="flex items-center justify-center gap-2 w-full h-15 p-0 mx-5 "
+                activeClassName="text-xl bg-secondary text-offWhite"
+                previousClassName="select-none items-center hover:bg-secondary hover:text-offWhite border-white rounded-md p-2"
+                nextClassName="select-none items-center hover:bg-secondary hover:text-offWhite border-white rounded-md p-2"
+                pageClassName="select-none items-center not-md:hidden hover:bg-secondary hover:text-offWhite border-white rounded-md p-2"
+                breakClassName="select-none items-center not-md:hidden hover:bg-secondary hover:text-offWhite border-white rounded-md p-2"
+                disabledClassName="select-none items-center not-md:hidden hover:bg-secondary hover:text-offWhite border-white rounded-md p-2"
+            /> : null}
     </div>
 };
 
