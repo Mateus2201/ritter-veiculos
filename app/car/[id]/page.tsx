@@ -50,7 +50,7 @@ export default function VehiclePage() {
     if (!vehicle) return null;
 
     return <div className="bg-gray-100 min-h-screen py-10 px-4">
-        <div className="w-full xl:w-6/7 mx-auto bg-white shadow-xl rounded-3xl p-8 flex flex-col lg:flex-row gap-10">
+        <div className="w-full xl:w-6/7 3xl:w-7/8 mx-auto bg-white shadow-xl rounded-3xl p-8 flex flex-col lg:flex-row gap-10">
             <Swipers idVehicle={vehicle.idVehicle} />
             <div className="flex-1 flex flex-col justify-between">
                 <div>
@@ -117,12 +117,8 @@ export default function VehiclePage() {
                 </div>
             </div>
         </div>
-        <div className="xl:w-6/7 mx-auto bg-white shadow-xl rounded-3xl" id="vehicle">
+        <div className="w-full xl:w-6/7 2xl:w-7/8 mx-auto bg-white shadow-xl rounded-3xl" id="vehicle">
             <Optionals Vehicle={vehicle} />
         </div>
     </div>
-
-
-
-
 }

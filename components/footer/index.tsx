@@ -53,7 +53,7 @@ export default function Footer({ logo }: FooterProps) {
                             className="flex items-center gap-2 hover:underline"
                         >
                             <MapPinned className="w-5 h-5" />
-                            Av. Flores da Cunha, nº 1140, Parada 50 - Canoas - RS
+                            Av. Flores da Cunha, nº 1140, Parada 50 - Cachoeirinha - RS
                         </Link>
                         <p>Horários de Atendimento</p>
                         <p>Segunda à Sexta: 8:30 às 18:30</p>
