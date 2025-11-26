@@ -59,7 +59,7 @@ export default function Grid({ Vehicles }: GridProps) {
                             </p>
                             <p className="flex items-center gap-1">
                                 <Calendar1 className="w-4 h-4" />
-                                {vehicle.modelYear}/{vehicle.manufacturingYear}
+                                {vehicle.manufacturingYear}/{vehicle.modelYear}
                             </p>
                             <p className="flex items-center gap-1">
                                 <Fuel className="w-4 h-4" />

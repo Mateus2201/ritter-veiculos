@@ -77,7 +77,7 @@ export default function VehiclePage() {
                             <Factory className="w-4 h-4" /> {vehicle?.Manufacturer?.name || 'Fabricante'}
                         </p>
                         <p className="flex items-center gap-2">
-                            <CalendarCheck2 className="w-4 h-4" /> {vehicle?.modelYear}/{vehicle?.manufacturingYear}
+                            <CalendarCheck2 className="w-4 h-4" /> {vehicle?.manufacturingYear}/{vehicle?.modelYear}
                         </p>
                         <p className="flex items-center gap-2">
                             <Fuel className="w-4 h-4" /> {vehicle?.fuel}
