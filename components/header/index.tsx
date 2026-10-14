@@ -16,6 +16,7 @@ const MenuItems = [
     { id: 4, name: 'Clássicos', href: '/classic' },
     // { id: 5, name: 'Contato', href: '/contact' },
     { id: 6, name: 'Sobre Nós', href: '/about' },
+    // { id: 7, name: 'Privacidade', href: '/privacy' },
 ]
 
 export default function Header({ logo }: HeaderProps) {

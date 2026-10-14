@@ -15,6 +15,12 @@ export default function Footer({ logo }: FooterProps) {
                     <p className="text-sm text-offWhite/80">
                         © {new Date().getFullYear()} Ritter Veículos. Todos os direitos reservados.
                     </p>
+                    <Link
+                        href="/privacy"
+                        className="mt-3 text-sm text-offWhite/80 hover:text-offWhite hover:underline"
+                    >
+                        Política de Privacidade
+                    </Link>
                 </div>
                 <div>
                     <h2 className="text-xl font-semibold mb-4">Contatos</h2>
